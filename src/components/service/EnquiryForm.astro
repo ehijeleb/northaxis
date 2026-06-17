@@ -1,0 +1,67 @@
+---
+// Service-specific enquiry form (Step 9). Static UI for now — the Resend endpoint + spam traps
+// are wired in Phase F (Step 18). Carries the service name so the enquiry is routed/labelled.
+import Section from '../ui/Section.astro';
+import TextField from '../ui/TextField.astro';
+import TextArea from '../ui/TextArea.astro';
+import Button from '../ui/Button.astro';
+
+interface Props {
+  serviceLabel: string;
+}
+const { serviceLabel } = Astro.props;
+---
+
+<Section bg="white" width="narrow" space="lg" id="enquiry">
+  <h2 class="nx-enq__title">Submit a project enquiry</h2>
+  <p class="nx-enq__lead">
+    Tell us about your {serviceLabel.toLowerCase()} requirement and we will respond within two
+    working days.
+  </p>
+
+  {/* Phase F wires action/method + honeypot + submit-time trap. For now this does not submit. */}
+  <form class="nx-enq__form" data-enquiry novalidate>
+    <input type="hidden" name="service" value={serviceLabel} />
+    <div class="nx-enq__row">
+      <TextField label="Full name" name="name" required autocomplete="name" />
+      <TextField label="Organisation" name="organisation" autocomplete="organization" />
+    </div>
+    <div class="nx-enq__row">
+      <TextField label="Work email" name="email" type="email" required autocomplete="email" />
+      <TextField label="Phone" name="phone" type="tel" autocomplete="tel" />
+    </div>
+    <TextArea label="Your requirement" name="message" required placeholder="Briefly describe what you need and your timeline." />
+    <div>
+      <Button type="submit" variant="primary" arrow>Submit a project enquiry</Button>
+    </div>
+  </form>
+</Section>
+
+<style>
+  .nx-enq__title {
+    margin: 0 0 0.5rem;
+    font-size: clamp(1.5rem, 1.2rem + 1.2vw, 2rem);
+    font-weight: 700;
+    color: var(--color-ink);
+  }
+  .nx-enq__lead {
+    margin: 0 0 2rem;
+    color: var(--color-grey);
+    font-size: 1.02rem;
+  }
+  .nx-enq__form {
+    display: flex;
+    flex-direction: column;
+    gap: 1.25rem;
+  }
+  .nx-enq__row {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1.25rem;
+  }
+  @media (min-width: 560px) {
+    .nx-enq__row {
+      grid-template-columns: 1fr 1fr;
+    }
+  }
+</style>

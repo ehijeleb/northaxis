@@ -1,0 +1,307 @@
+---
+// ServicePage — shared template for the three service lines (Step 9, Brief §7). Data-driven by
+// src/data/services.ts. Section order follows the brief's stated intent: the "Consultancy services"
+// section sits directly above the CTA band; the enquiry form is the final conversion section.
+// Equipment categories render only when present (Line 1 only). Delivery steps are variable length.
+import Section from '../ui/Section.astro';
+import Card from '../ui/Card.astro';
+import PullQuote from '../ui/PullQuote.astro';
+import StepList from '../ui/StepList.astro';
+import Pill from '../ui/Pill.astro';
+import CtaBand from '../ui/CtaBand.astro';
+import Button from '../ui/Button.astro';
+import Breadcrumb from '../ui/Breadcrumb.astro';
+import EnquiryForm from './EnquiryForm.astro';
+import { CAPABILITY_STATEMENT_URL } from '../../config/site';
+import type { ServiceData } from '../../data/services';
+
+interface Props {
+  data: ServiceData;
+}
+const { data } = Astro.props;
+
+const crumbs = [
+  { label: 'Home', href: '/' },
+  { label: 'What we do', href: '/what-we-do' },
+  { label: data.label },
+];
+
+// Split "... Services: a, b, c" into lead + services list (verbatim words preserved).
+function splitServices(body: string): { lead: string; services?: string } {
+  const idx = body.indexOf('Services:');
+  if (idx === -1) return { lead: body };
+  return { lead: body.slice(0, idx).trim(), services: body.slice(idx + 'Services:'.length).trim() };
+}
+---
+
+{/* 1. Hero */}
+<section class="nx-shero" aria-labelledby="nx-shero-title">
+  <div class="nx-shero__bg" aria-hidden="true"></div>
+  <div class="nx-shero__inner">
+    <Breadcrumb items={crumbs} class="nx-shero__crumb" />
+    <h1 id="nx-shero-title" class="nx-shero__title">{data.label}</h1>
+    <p class="nx-shero__sub">{data.hero.sub}</p>
+    <div class="nx-shero__actions">
+      <Button variant="primary" onDark href={CAPABILITY_STATEMENT_URL} arrow>Request a capability statement</Button>
+      <Button variant="secondary" onDark href="#enquiry" arrow>Discuss your requirement</Button>
+    </div>
+  </div>
+</section>
+
+{/* 2. Section intro — pull quote (serif) + body */}
+<Section bg="default" width="narrow" space="lg">
+  <PullQuote>{data.intro.quote}</PullQuote>
+  <p class="nx-prose">{data.intro.body}</p>
+</Section>
+
+{/* 3. Core capabilities — four cards */}
+<Section bg="white" space="lg">
+  <h2 class="nx-h2">Core capabilities</h2>
+  <div class="nx-grid2">
+    {
+      data.capabilities.map((c) => {
+        const { lead, services } = splitServices(c.body);
+        return (
+          <Card>
+            <h3 class="nx-card__title">{c.title}</h3>
+            <p class="nx-card__body">{lead}</p>
+            {services && (
+              <p class="nx-card__services"><strong>Services:</strong> {services}</p>
+            )}
+          </Card>
+        );
+      })
+    }
+  </div>
+</Section>
+
+{/* 4. Equipment categories — six tiles (Line 1 only) */}
+{
+  data.equipment && (
+    <Section bg="default" space="lg">
+      <h2 class="nx-h2">Equipment categories</h2>
+      <div class="nx-grid3">
+        {data.equipment.map((e) => (
+          <div class="nx-tile">
+            <h3 class="nx-tile__title">{e.title}</h3>
+            <p class="nx-tile__items">{e.items}</p>
+          </div>
+        ))}
+      </div>
+    </Section>
+  )
+}
+
+{/* 5. Delivery process — step list */}
+<Section bg="white" width="narrow" space="lg">
+  <h2 class="nx-h2">Delivery process</h2>
+  <StepList steps={data.delivery} />
+</Section>
+
+{/* 6. Sectors served */}
+<Section bg="default" space="md">
+  <h2 class="nx-h2">Sectors served</h2>
+  <ul class="nx-pills">
+    {data.sectors.map((s) => <li><Pill>{s}</Pill></li>)}
+  </ul>
+</Section>
+
+{/* 7. Case studies placeholder (flagged) */}
+<Section bg="white" width="narrow" space="md">
+  <h2 class="nx-h2">Case studies</h2>
+  <div class="nx-casenote">
+    <p>
+      Project case studies for this service line are being prepared. They will set out the client
+      type, equipment or services supplied, project location, delivery timeline, and the outcome
+      achieved.
+    </p>
+    <p class="nx-casenote__hint">Content to be supplied by the client before launch.</p>
+  </div>
+</Section>
+
+{/* 8. Consultancy services — directly above the CTA band (cross-cutting advisory register) */}
+<Section bg="tealLight" space="lg">
+  <h2 class="nx-h2">Consultancy services</h2>
+  <p class="nx-consult__intro">{data.consultancyIntro}</p>
+  <div class="nx-grid2">
+    {
+      data.consultancy.map((c) => (
+        <Card variant="consultancy">
+          <h3 class="nx-card__title">{c.title}</h3>
+          <p class="nx-card__body">{c.body}</p>
+        </Card>
+      ))
+    }
+  </div>
+</Section>
+
+{/* 9. CTA band */}
+<Section bg="default" space="lg">
+  <CtaBand title={data.cta.headline} sub={data.cta.body} variant="teal">
+    <Button variant="primary" onDark href="#enquiry" arrow>Submit a project enquiry</Button>
+    <Button variant="secondary" onDark href={CAPABILITY_STATEMENT_URL} arrow>Download capability statement</Button>
+  </CtaBand>
+</Section>
+
+{/* 10. Service-specific enquiry form (Phase F wires submission) */}
+<EnquiryForm serviceLabel={data.label} />
+
+<style>
+  /* Service hero */
+  .nx-shero {
+    position: relative;
+    isolation: isolate;
+    overflow: hidden;
+    display: flex;
+    align-items: flex-end;
+    min-height: clamp(20rem, 42vh, 26rem);
+  }
+  .nx-shero__bg {
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    background-color: #14201d;
+    background-image: linear-gradient(180deg, rgba(15, 110, 86, 0.18) 0%, rgba(20, 32, 29, 0) 45%),
+      linear-gradient(0deg, rgba(0, 0, 0, 0.5) 0%, rgba(0, 0, 0, 0) 60%);
+  }
+  .nx-shero__inner {
+    width: 100%;
+    max-width: 72rem;
+    margin-inline: auto;
+    padding: 2.5rem 1.25rem;
+    color: #fff;
+  }
+  @media (min-width: 640px) {
+    .nx-shero__inner {
+      padding: 3rem 1.5rem;
+    }
+  }
+  .nx-shero__crumb {
+    color: rgba(255, 255, 255, 0.85);
+    margin-bottom: 1rem;
+  }
+  .nx-shero__title {
+    margin: 0;
+    max-width: 22ch;
+    font-size: clamp(1.8rem, 1.1rem + 3vw, 2.9rem);
+    font-weight: 700;
+    line-height: 1.1;
+  }
+  .nx-shero__sub {
+    margin: 1.1rem 0 0;
+    max-width: 60ch;
+    font-size: clamp(1rem, 0.95rem + 0.3vw, 1.12rem);
+    line-height: 1.6;
+    color: rgba(255, 255, 255, 0.88);
+  }
+  .nx-shero__actions {
+    margin-top: 1.75rem;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.85rem;
+  }
+
+  /* Shared content helpers */
+  .nx-h2 {
+    margin: 0 0 1.5rem;
+    font-size: clamp(1.5rem, 1.2rem + 1.4vw, 2rem);
+    font-weight: 700;
+    color: var(--color-ink);
+  }
+  .nx-prose {
+    margin: 1.75rem 0 0;
+    font-size: 1.05rem;
+    line-height: 1.75;
+    color: var(--color-grey);
+  }
+  .nx-grid2 {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1.25rem;
+  }
+  @media (min-width: 700px) {
+    .nx-grid2 {
+      grid-template-columns: 1fr 1fr;
+    }
+  }
+  .nx-grid3 {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+  @media (min-width: 560px) {
+    .nx-grid3 {
+      grid-template-columns: 1fr 1fr;
+    }
+  }
+  @media (min-width: 900px) {
+    .nx-grid3 {
+      grid-template-columns: repeat(3, 1fr);
+    }
+  }
+  .nx-card__services {
+    margin: 0.75rem 0 0;
+    font-size: 0.9rem;
+    line-height: 1.55;
+    color: var(--color-grey);
+  }
+  .nx-card__services strong {
+    color: var(--color-ink);
+    font-weight: 600;
+  }
+
+  /* Equipment tiles */
+  .nx-tile {
+    padding: 1.25rem 1.4rem;
+    background: #fff;
+    border: 1px solid var(--color-border);
+    border-radius: 0.75rem;
+    border-left: 3px solid var(--color-teal);
+  }
+  .nx-tile__title {
+    margin: 0 0 0.4rem;
+    font-size: 1.05rem;
+    font-weight: 600;
+    color: var(--color-ink);
+  }
+  .nx-tile__items {
+    margin: 0;
+    font-size: 0.9rem;
+    line-height: 1.5;
+    color: var(--color-grey);
+  }
+
+  .nx-pills {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.6rem;
+  }
+
+  /* Case studies placeholder */
+  .nx-casenote {
+    padding: 1.5rem 1.75rem;
+    background: var(--color-bg);
+    border: 1px dashed var(--color-border);
+    border-radius: 0.75rem;
+    color: var(--color-grey);
+    line-height: 1.65;
+  }
+  .nx-casenote p {
+    margin: 0;
+  }
+  .nx-casenote__hint {
+    margin-top: 0.75rem !important;
+    font-size: 0.85rem;
+    color: color-mix(in srgb, var(--color-grey) 80%, transparent);
+  }
+
+  .nx-consult__intro {
+    margin: -0.75rem 0 1.5rem;
+    max-width: 60ch;
+    color: var(--color-grey);
+    line-height: 1.6;
+  }
+</style>

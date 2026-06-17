@@ -1,0 +1,63 @@
+---
+// Breadcrumb — accessible trail. Last item is the current page (no link, aria-current).
+interface Crumb {
+  label: string;
+  href?: string;
+}
+interface Props {
+  items: Crumb[];
+  class?: string;
+}
+const { items, class: className } = Astro.props;
+---
+
+<nav aria-label="Breadcrumb" class:list={['nx-crumb', className]}>
+  <ol>
+    {
+      items.map((c, i) => (
+        <li>
+          {c.href && i < items.length - 1 ? (
+            <a href={c.href}>{c.label}</a>
+          ) : (
+            <span aria-current="page">{c.label}</span>
+          )}
+          {i < items.length - 1 && <span class="nx-crumb__sep" aria-hidden="true">›</span>}
+        </li>
+      ))
+    }
+  </ol>
+</nav>
+
+<style>
+  .nx-crumb ol {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0.4rem;
+    font-size: 0.85rem;
+  }
+  .nx-crumb li {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+  }
+  .nx-crumb a {
+    color: inherit;
+    opacity: 0.8;
+    text-decoration: none;
+  }
+  .nx-crumb a:hover {
+    opacity: 1;
+    text-decoration: underline;
+    text-underline-offset: 2px;
+  }
+  .nx-crumb [aria-current='page'] {
+    font-weight: 600;
+  }
+  .nx-crumb__sep {
+    opacity: 0.5;
+  }
+</style>

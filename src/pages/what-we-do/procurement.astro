@@ -1,0 +1,10 @@
+---
+// Line 1 — Procurement, supply chain & logistics (Brief §7.1). Uses the shared ServicePage template.
+import Base from '../../layouts/Base.astro';
+import ServicePage from '../../components/service/ServicePage.astro';
+import { PROCUREMENT } from '../../data/services';
+---
+
+<Base title={`${PROCUREMENT.label} — Northaxis`} description={PROCUREMENT.metaDescription}>
+  <ServicePage data={PROCUREMENT} />
+</Base>

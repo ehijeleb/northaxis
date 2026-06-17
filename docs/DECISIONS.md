@@ -4,6 +4,24 @@ Running log of non-obvious choices. Newest first.
 
 ---
 
+## Step 9 — Service-page template (Line 1, Procurement)
+
+- **One data-driven template** `components/service/ServicePage.astro` fed by `src/data/services.ts`.
+  `equipment` is optional (Line 1 only); `delivery` is variable-length (5 steps here, 4 for ICT/Energy
+  in Step 10). Copy is VERBATIM (Brief §7.1).
+- **Section order resolves a brief inconsistency.** The brief's detailed §7.1 lists Consultancy
+  before Sectors/Case studies, but BOTH the brief's §7 intro AND the build instructions state the
+  "Consultancy services" section sits *immediately above the CTA band*. Honoured that stated intent:
+  Hero → intro → capabilities → equipment → delivery → sectors → case studies → **Consultancy →
+  CTA band** → enquiry form. The enquiry form is the final conversion section; the CTA band's
+  "Submit a project enquiry" and the hero's "Discuss your requirement" anchor to `#enquiry`.
+- **Capability cards** split the verbatim body into a lead sentence + a bolded "Services:" line
+  (words unchanged) for readability.
+- **Case studies = dignified dashed-border placeholder** (my copy, no em dashes); flagged blocked.
+- **Enquiry form is static UI** (Phase F wires the Resend endpoint + honeypot/time-trap). Carries a
+  hidden `service` field = the line label.
+- Hero reuses the dark placeholder treatment (shorter than the homepage hero) with a breadcrumb.
+
 ## Step 8 — Homepage services / why / sectors / CTA
 
 - **Copy verbatim from Brief §6.4–6.7** (service cards, differentiators, sectors pills, CTA band).
