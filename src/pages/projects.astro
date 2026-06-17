@@ -1,0 +1,170 @@
+---
+// Projects / Case studies (Phase E, Step 15). Sourced from the `projects` content collection
+// (client-editable via Sveltia CMS in Step 19). The client has no case studies yet, so the page
+// shows a dignified empty state rather than a broken or empty grid. Copy is my own voice: no em dashes.
+import { getCollection } from 'astro:content';
+import Base from '../layouts/Base.astro';
+import PageHero from '../components/ui/PageHero.astro';
+import Section from '../components/ui/Section.astro';
+import Card from '../components/ui/Card.astro';
+import Button from '../components/ui/Button.astro';
+import Pill from '../components/ui/Pill.astro';
+import FolderOpen from 'lucide-astro/FolderOpen';
+
+const crumbs = [{ label: 'Home', href: '/' }, { label: 'Projects' }];
+
+const all = await getCollection('projects', (p) => !p.data.draft);
+const projects = all.sort((a, b) => b.data.order - a.data.order);
+
+const description =
+  'Case studies of Northaxis delivery and advisory work across procurement, ICT, and energy for government and institutional clients in Nigeria.';
+---
+
+<Base title="Projects & case studies | Northaxis Integrated Services" description={description}>
+  <PageHero
+    crumbs={crumbs}
+    headline="Projects & case studies"
+    sub="Proof of delivery across procurement, technology, and energy. Each case study sets out the client type, the service line, the scope of work, and the outcome achieved."
+  >
+    <Button variant="primary" onDark href="/contact" arrow>Get in touch</Button>
+  </PageHero>
+
+  {
+    projects.length > 0 ? (
+      <Section bg="white" space="lg">
+        <div class="nx-proj-grid">
+          {projects.map((p) => (
+            <Card class="nx-proj">
+              <Pill variant="teal">{p.data.serviceLine}</Pill>
+              <h2 class="nx-proj__title">{p.data.title}</h2>
+              <p class="nx-proj__meta">
+                {p.data.clientType}
+                {p.data.location ? ` · ${p.data.location}` : ''}
+                {p.data.date ? ` · ${p.data.date}` : ''}
+              </p>
+              <div class="nx-proj__block">
+                <span class="nx-proj__label">Scope</span>
+                <p>{p.data.scope}</p>
+              </div>
+              <div class="nx-proj__block">
+                <span class="nx-proj__label">Outcome</span>
+                <p>{p.data.outcome}</p>
+              </div>
+            </Card>
+          ))}
+        </div>
+      </Section>
+    ) : (
+      <Section bg="white" width="narrow" space="lg">
+        <div class="nx-empty">
+          <span class="nx-empty__icon" aria-hidden="true"><FolderOpen /></span>
+          <h2 class="nx-empty__title">Case studies are on the way</h2>
+          <p class="nx-empty__body">
+            We are preparing detailed case studies of our delivery and advisory work. Each will set
+            out the client type, the service line, the scope of work, and the outcome achieved. In
+            the meantime, we are happy to share relevant references on request.
+          </p>
+          <div class="nx-empty__actions">
+            <Button variant="primary" href="/contact" arrow>Request references</Button>
+            <Button variant="secondary" href="/what-we-do">View our services</Button>
+          </div>
+        </div>
+      </Section>
+    )
+  }
+</Base>
+
+<style>
+  .nx-proj-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1.25rem;
+  }
+  @media (min-width: 640px) {
+    .nx-proj-grid {
+      grid-template-columns: 1fr 1fr;
+    }
+  }
+  @media (min-width: 1000px) {
+    .nx-proj-grid {
+      grid-template-columns: repeat(3, 1fr);
+    }
+  }
+  .nx-proj {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+  .nx-proj__title {
+    margin: 0.75rem 0 0;
+    font-size: 1.15rem;
+    font-weight: 600;
+    color: var(--color-ink);
+    line-height: 1.25;
+  }
+  .nx-proj__meta {
+    margin: 0;
+    font-size: 0.85rem;
+    color: var(--color-grey);
+  }
+  .nx-proj__block {
+    margin-top: 0.75rem;
+  }
+  .nx-proj__label {
+    display: block;
+    font-size: 0.72rem;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--color-teal);
+    margin-bottom: 0.2rem;
+  }
+  .nx-proj__block p {
+    margin: 0;
+    font-size: 0.92rem;
+    line-height: 1.55;
+    color: var(--color-grey);
+  }
+
+  /* Empty state */
+  .nx-empty {
+    text-align: center;
+    padding: 2rem 1rem;
+    border: 1px dashed var(--color-border);
+    border-radius: 1rem;
+    background: var(--color-bg);
+  }
+  .nx-empty__icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 3.5rem;
+    height: 3.5rem;
+    border-radius: 9999px;
+    background: var(--color-teal-light);
+    color: var(--color-teal);
+    margin-bottom: 1rem;
+  }
+  .nx-empty__icon :global(svg) {
+    width: 1.6rem;
+    height: 1.6rem;
+  }
+  .nx-empty__title {
+    margin: 0 0 0.6rem;
+    font-size: 1.4rem;
+    font-weight: 700;
+    color: var(--color-ink);
+  }
+  .nx-empty__body {
+    margin: 0 auto 1.5rem;
+    max-width: 52ch;
+    color: var(--color-grey);
+    line-height: 1.7;
+  }
+  .nx-empty__actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+    justify-content: center;
+  }
+</style>
