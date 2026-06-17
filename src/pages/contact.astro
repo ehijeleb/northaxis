@@ -1,0 +1,182 @@
+---
+// Contact (Phase E, Step 16). General contact form + contact details + consent-gated lazy map.
+// Copy is my own voice (no em dashes). Phone/WhatsApp are confirmed; email + address are
+// placeholders (flagged). The form is static UI until Phase F (Step 18) wires the Resend endpoint.
+import Base from '../layouts/Base.astro';
+import PageHero from '../components/ui/PageHero.astro';
+import Section from '../components/ui/Section.astro';
+import TextField from '../components/ui/TextField.astro';
+import TextArea from '../components/ui/TextArea.astro';
+import Button from '../components/ui/Button.astro';
+import ConsentMap from '../components/ConsentMap.tsx';
+import { SITE, WHATSAPP_CHAT_URL } from '../config/site';
+import '../styles/map.css';
+import Phone from 'lucide-astro/Phone';
+import MessageCircle from 'lucide-astro/MessageCircle';
+import Mail from 'lucide-astro/Mail';
+import MapPin from 'lucide-astro/MapPin';
+
+const crumbs = [{ label: 'Home', href: '/' }, { label: 'Contact' }];
+const mapQuery = 'Benin City, Edo State, Nigeria';
+
+const description =
+  'Contact Northaxis Integrated Services in Benin City, Edo State. Call or message us on WhatsApp, send an enquiry, or find us on the map.';
+---
+
+<Base title="Contact us | Northaxis Integrated Services" description={description}>
+  <PageHero
+    crumbs={crumbs}
+    headline="Contact us"
+    sub="Tell us about your requirement and we will respond within two working days. You can also reach us by phone or WhatsApp."
+  />
+
+  <Section bg="white" space="lg">
+    <div class="nx-contact">
+      {/* Left: details */}
+      <div class="nx-contact__details">
+        <h2 class="nx-h2">Reach us</h2>
+        <ul class="nx-contact__list">
+          <li>
+            <span class="nx-contact__icon" aria-hidden="true"><Phone /></span>
+            <div>
+              <span class="nx-contact__label">Phone</span>
+              <a href={`tel:${SITE.whatsappNumber.replace(/\s/g, '')}`}>{SITE.whatsappNumber}</a>
+            </div>
+          </li>
+          <li>
+            <span class="nx-contact__icon" aria-hidden="true"><MessageCircle /></span>
+            <div>
+              <span class="nx-contact__label">WhatsApp</span>
+              <a href={WHATSAPP_CHAT_URL} target="_blank" rel="noopener noreferrer">Chat on WhatsApp</a>
+            </div>
+          </li>
+          <li>
+            <span class="nx-contact__icon" aria-hidden="true"><Mail /></span>
+            <div>
+              <span class="nx-contact__label">Email <span class="nx-ph">(to be confirmed)</span></span>
+              <a href={`mailto:${SITE.emailPlaceholder}`}>{SITE.emailPlaceholder}</a>
+            </div>
+          </li>
+          <li>
+            <span class="nx-contact__icon" aria-hidden="true"><MapPin /></span>
+            <div>
+              <span class="nx-contact__label">Office <span class="nx-ph">(address to be confirmed)</span></span>
+              <span>{SITE.addressPlaceholder}</span>
+            </div>
+          </li>
+        </ul>
+      </div>
+
+      {/* Right: general contact form (Phase F wires submission) */}
+      <div class="nx-contact__form">
+        <h2 class="nx-h2">Send us a message</h2>
+        <form class="nx-form" data-enquiry novalidate>
+          <input type="hidden" name="service" value="General enquiry" />
+          <TextField label="Full name" name="name" required autocomplete="name" />
+          <TextField label="Organisation" name="organisation" autocomplete="organization" />
+          <TextField label="Work email" name="email" type="email" required autocomplete="email" />
+          <TextField label="Phone" name="phone" type="tel" autocomplete="tel" />
+          <TextArea label="Message" name="message" required placeholder="How can we help?" />
+          <div>
+            <Button type="submit" variant="primary" arrow>Send message</Button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </Section>
+
+  {/* Consent-gated, lazy map */}
+  <Section bg="default" space="md">
+    <h2 class="nx-h2">Find us</h2>
+    <p class="nx-map-note">
+      Our office is in Benin City, Edo State. The precise location pin is
+      <span class="nx-ph">to be confirmed</span>.
+    </p>
+    <ConsentMap query={mapQuery} label="Map showing Northaxis in Benin City, Edo State" client:idle />
+  </Section>
+</Base>
+
+<style>
+  .nx-h2 {
+    margin: 0 0 1.5rem;
+    font-size: clamp(1.4rem, 1.1rem + 1.2vw, 1.8rem);
+    font-weight: 700;
+    color: var(--color-ink);
+  }
+  .nx-contact {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 2.5rem;
+  }
+  @media (min-width: 860px) {
+    .nx-contact {
+      grid-template-columns: 0.8fr 1.2fr;
+      gap: 3.5rem;
+    }
+  }
+  .nx-contact__list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+  }
+  .nx-contact__list li {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    gap: 1rem;
+    align-items: start;
+  }
+  .nx-contact__icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 2.5rem;
+    height: 2.5rem;
+    flex: none;
+    border-radius: 0.6rem;
+    background: var(--color-teal-light);
+    color: var(--color-teal);
+  }
+  .nx-contact__icon :global(svg) {
+    width: 1.25rem;
+    height: 1.25rem;
+  }
+  .nx-contact__label {
+    display: block;
+    font-size: 0.78rem;
+    font-weight: 600;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    color: var(--color-grey);
+    margin-bottom: 0.2rem;
+  }
+  .nx-contact__list a,
+  .nx-contact__list div > span:last-child {
+    color: var(--color-ink);
+    text-decoration: none;
+    font-size: 1.02rem;
+  }
+  .nx-contact__list a:hover {
+    color: var(--color-teal);
+    text-decoration: underline;
+    text-underline-offset: 2px;
+  }
+  .nx-form {
+    display: flex;
+    flex-direction: column;
+    gap: 1.25rem;
+  }
+  .nx-ph {
+    color: var(--color-grey);
+    font-style: italic;
+    font-weight: 400;
+    text-transform: none;
+    letter-spacing: 0;
+  }
+  .nx-map-note {
+    margin: -0.75rem 0 1.25rem;
+    color: var(--color-grey);
+  }
+</style>

@@ -4,6 +4,22 @@ Running log of non-obvious choices. Newest first.
 
 ---
 
+## Step 16 — Contact page + consent-gated map
+
+- **Google Maps is consent-gated AND lazy.** `ConsentMap.tsx` renders only a lightweight placeholder
+  + a plain "View on Google Maps" link until the user accepts cookies (`hasConsent()`); then it
+  mounts an `<iframe loading="lazy">`. No Google cookies / Maps request before consent; nothing heavy
+  on the critical path. Uses the keyless `maps.google.com/...&output=embed` URL (no API key needed).
+- **Island hydration: `client:idle`, not `client:visible`.** `client:visible` is the most lazy option
+  but depends on the IntersectionObserver firing on scroll (couldn't verify in the headless preview).
+  `client:idle` guarantees hydration after load while staying off the critical path — and the map
+  request is still deferred by consent + `loading="lazy"`. Verified: placeholder before consent →
+  live iframe load on accept.
+- **General contact form is separate from the service EnquiryForm** (Brief: one general form on
+  Contact). Built inline with the shared field components; hidden `service="General enquiry"`;
+  `data-enquiry` marker so Phase F wires it alongside the service forms. Static until Step 18.
+- Location/address are placeholders (Benin City); flagged.
+
 ## Step 9 — Service-page template (Line 1, Procurement)
 
 - **One data-driven template** `components/service/ServicePage.astro` fed by `src/data/services.ts`.

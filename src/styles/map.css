@@ -1,0 +1,51 @@
+/* ConsentMap styles (Step 16). Used by the ConsentMap React island. */
+.nx-map {
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  border-radius: 0.75rem;
+  overflow: hidden;
+  border: 1px solid var(--color-border);
+  background: var(--color-bg);
+}
+.nx-map__frame {
+  width: 100%;
+  height: 100%;
+  border: 0;
+  display: block;
+}
+.nx-map--placeholder {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0.85rem;
+  text-align: center;
+  padding: 1.5rem;
+  border-style: dashed;
+}
+.nx-map__msg {
+  margin: 0;
+  max-width: 36ch;
+  color: var(--color-grey);
+  font-size: 0.92rem;
+  line-height: 1.55;
+}
+.nx-map__link {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.5rem 1rem;
+  border-radius: 0.5rem;
+  border: 1px solid var(--color-teal);
+  color: var(--color-teal);
+  font-weight: 600;
+  font-size: 0.9rem;
+  text-decoration: none;
+  transition: background-color 150ms ease-out;
+}
+.nx-map__link:hover {
+  background: var(--color-teal-light);
+}
+.nx-map__link:focus-visible {
+  outline: 2px solid var(--color-teal);
+  outline-offset: 2px;
+}
