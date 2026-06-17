@@ -57,6 +57,12 @@ export const SITE = {
 /** Full WhatsApp click-to-chat URL with the prefilled message. */
 export const WHATSAPP_CHAT_URL = `${SITE.whatsappUrl}?text=${encodeURIComponent(SITE.whatsappMessage)}`;
 
+/**
+ * PLACEHOLDER capability-statement PDF (produced separately by the client — blocked item).
+ * Linked from the homepage CTA band and service pages. Will 404 until the file is supplied.
+ */
+export const CAPABILITY_STATEMENT_URL = '/northaxis-capability-statement.pdf';
+
 /** Mark the active route for aria-current. Exact match, plus section match for nested service pages. */
 export function isActive(href: string, pathname: string): boolean {
   const norm = (p: string) => (p !== '/' && p.endsWith('/') ? p.slice(0, -1) : p);

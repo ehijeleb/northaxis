@@ -1,0 +1,157 @@
+---
+// Homepage services grid (Step 8, Brief §6.4). Three service cards + one Consultancy card.
+// Each: icon + title + 2-line verbatim description + "Learn more". Consultancy is visually
+// distinguished as cross-cutting (light-teal register), not a fourth service.
+// Card descriptions are VERBATIM, em dashes included.
+import Section from '../ui/Section.astro';
+import Card from '../ui/Card.astro';
+import ArrowRight from 'lucide-astro/ArrowRight';
+import Truck from 'lucide-astro/Truck';
+import Server from 'lucide-astro/Server';
+import Zap from 'lucide-astro/Zap';
+import Compass from 'lucide-astro/Compass';
+
+const services = [
+  {
+    Icon: Truck,
+    title: 'Procurement, supply chain & logistics',
+    desc: 'Vendor sourcing, equipment procurement, import and delivery for capital projects — with procurement strategy and supply chain advisory.',
+    href: '/what-we-do/procurement',
+  },
+  {
+    Icon: Server,
+    title: 'ICT services',
+    desc: 'Hardware supply, software deployment, network infrastructure and data systems — with digital transformation and e-government advisory.',
+    href: '/what-we-do/ict',
+  },
+  {
+    Icon: Zap,
+    title: 'Energy & sustainability',
+    desc: 'Petroleum products, power systems and renewable energy equipment — with energy audit, electrification planning and sustainability advisory.',
+    href: '/what-we-do/energy',
+  },
+];
+
+const consultancy = {
+  Icon: Compass,
+  title: 'Consultancy',
+  desc: 'Strategic advisory across procurement, technology, and energy — for government clients who need more than a supplier.',
+  href: '/consultancy',
+};
+const all = [...services, consultancy];
+---
+
+<Section bg="white" space="lg">
+  <div class="nx-svc__head">
+    <h2 class="nx-svc__title">What we do</h2>
+    <p class="nx-svc__lead">Three integrated service lines, with advisory embedded in each.</p>
+  </div>
+
+  <div class="nx-svc__grid">
+    {
+      all.map((s) => {
+        const Icon = s.Icon;
+        const isConsultancy = s.title === 'Consultancy';
+        return (
+          <Card href={s.href} hover variant={isConsultancy ? 'consultancy' : 'default'} class="nx-svc__card">
+            <span class="nx-svc__icon" data-consultancy={isConsultancy ? '' : undefined} aria-hidden="true">
+              <Icon />
+            </span>
+            <h3 class="nx-svc__cardtitle">{s.title}</h3>
+            <p class="nx-svc__desc">{s.desc}</p>
+            <span class="nx-svc__more">
+              Learn more <ArrowRight aria-hidden="true" />
+            </span>
+          </Card>
+        );
+      })
+    }
+  </div>
+</Section>
+
+<style>
+  .nx-svc__head {
+    max-width: 40rem;
+    margin-bottom: 2rem;
+  }
+  .nx-svc__title {
+    margin: 0;
+    font-size: clamp(1.6rem, 1.2rem + 1.4vw, 2.1rem);
+    font-weight: 700;
+    color: var(--color-ink);
+  }
+  .nx-svc__lead {
+    margin: 0.6rem 0 0;
+    color: var(--color-grey);
+    font-size: 1.05rem;
+  }
+  .nx-svc__grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1.25rem;
+  }
+  @media (min-width: 600px) {
+    .nx-svc__grid {
+      grid-template-columns: 1fr 1fr;
+    }
+  }
+  @media (min-width: 1024px) {
+    .nx-svc__grid {
+      grid-template-columns: repeat(4, 1fr);
+    }
+  }
+
+  /* Card internals (the Card itself provides border/padding/hover). */
+  .nx-svc__card {
+    display: flex;
+    flex-direction: column;
+  }
+  .nx-svc__icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 2.75rem;
+    height: 2.75rem;
+    border-radius: 0.6rem;
+    background: var(--color-teal-light);
+    color: var(--color-teal);
+    margin-bottom: 1rem;
+  }
+  .nx-svc__icon[data-consultancy] {
+    background: #fff;
+  }
+  .nx-svc__icon :global(svg) {
+    width: 1.4rem;
+    height: 1.4rem;
+  }
+  .nx-svc__cardtitle {
+    margin: 0 0 0.5rem;
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: var(--color-ink);
+    line-height: 1.25;
+  }
+  .nx-svc__desc {
+    margin: 0 0 1.25rem;
+    font-size: 0.92rem;
+    line-height: 1.55;
+    color: var(--color-grey);
+  }
+  .nx-svc__more {
+    margin-top: auto;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: var(--color-teal);
+  }
+  .nx-svc__more :global(svg) {
+    width: 1rem;
+    height: 1rem;
+    transition: transform 180ms ease-out;
+  }
+  .nx-svc__card:hover .nx-svc__more :global(svg) {
+    transform: translateX(3px);
+  }
+</style>

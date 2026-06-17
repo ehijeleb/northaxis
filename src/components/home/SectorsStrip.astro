@@ -1,0 +1,40 @@
+---
+// Homepage sectors strip (Step 8, Brief §6.6). Verbatim pill list.
+import Section from '../ui/Section.astro';
+import Pill from '../ui/Pill.astro';
+
+const sectors = [
+  'State government MDAs',
+  'Federal agencies',
+  'Health sector',
+  'Education institutions',
+  'Infrastructure & civil works',
+  'Oil & gas',
+  'Development finance',
+  'Private sector',
+];
+---
+
+<Section bg="white" space="md">
+  <h2 class="nx-sectors__title">Sectors we serve</h2>
+  <ul class="nx-sectors__list">
+    {sectors.map((s) => <li><Pill>{s}</Pill></li>)}
+  </ul>
+</Section>
+
+<style>
+  .nx-sectors__title {
+    margin: 0 0 1.25rem;
+    font-size: clamp(1.4rem, 1.1rem + 1.2vw, 1.8rem);
+    font-weight: 700;
+    color: var(--color-ink);
+  }
+  .nx-sectors__list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.6rem;
+  }
+</style>

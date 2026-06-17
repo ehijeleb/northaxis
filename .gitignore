@@ -30,3 +30,6 @@ document_pdf.pdf
 # os / editor
 .DS_Store
 Thumbs.db
+
+# lighthouse scratch
+.lhtmp/

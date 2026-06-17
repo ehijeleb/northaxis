@@ -4,6 +4,26 @@ Running log of non-obvious choices. Newest first.
 
 ---
 
+## Step 8 — Homepage services / why / sectors / CTA
+
+- **Copy verbatim from Brief §6.4–6.7** (service cards, differentiators, sectors pills, CTA band).
+  Em dashes preserved. Section headings ("What we do", "Why Northaxis", "Sectors we serve") and the
+  services lead-in are my own structural copy (no em dashes).
+- **Consultancy is the 4th card in the grid but visually cross-cutting** (light-teal `#E1F5EE`
+  background via Card `variant="consultancy"`, white icon chip) — per §6.4 / build instructions.
+  Grid: 1-col mobile → 2-col → 4-col desktop.
+- **Capability statement** links to placeholder `/northaxis-capability-statement.pdf` (blocked; will
+  404 until the client supplies the PDF).
+- **Lighthouse (mobile, local production build, simulated throttling): Performance = 100.**
+  FCP 1.2s · LCP 1.2s · TBT 0ms · CLS 0.015 · Speed Index 1.5s. No render-blocking resources
+  (fonts self-hosted, CSS in `<head>`). Re-run on the deployed Vercel URL at Step 22/24 for a
+  real-network number.
+- **JS payload to revisit at Step 22:** total ~203KB raw / ~65KB gzip, dominated by the React
+  runtime (`client.js` 186KB raw / 58.5KB gzip) pulled in by the Nav (`client:load`) and
+  CookieConsent (`client:idle`) islands. Over the 100KB-raw note threshold; TBT is still 0ms so it
+  is not hurting interactivity, but options for Phase G: lighter/no-framework nav toggle, or trim
+  islands. Per-page Astro JS is tiny (Nav 6KB, consent 1.8KB).
+
 ## Step 6 — Homepage hero
 
 - **Copy is verbatim from Brief §6.1** (headline + sub-headline, em dashes preserved). Do not edit.

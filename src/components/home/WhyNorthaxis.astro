@@ -1,0 +1,103 @@
+---
+// Homepage "Why Northaxis" (Step 8, Brief §6.5). Four differentiators, verbatim (em dashes kept).
+import Section from '../ui/Section.astro';
+import MapPin from 'lucide-astro/MapPin';
+import Layers from 'lucide-astro/Layers';
+import ShieldCheck from 'lucide-astro/ShieldCheck';
+import Handshake from 'lucide-astro/Handshake';
+
+const items = [
+  {
+    Icon: MapPin,
+    title: 'Locally rooted',
+    body: "Headquartered in Benin City with deep knowledge of Edo State's development priorities, procurement cycles, and institutional landscape.",
+  },
+  {
+    Icon: Layers,
+    title: 'Integrated by design',
+    body: 'Three capability lines under one CAC registration — one vendor relationship, one accountability structure, fewer coordination gaps.',
+  },
+  {
+    Icon: ShieldCheck,
+    title: 'Government-ready',
+    body: 'Our processes, documentation, and compliance posture are built for public sector procurement — from pre-qualification to contract delivery.',
+  },
+  {
+    Icon: Handshake,
+    title: 'Supply and strategy',
+    body: 'We deliver the equipment and the expertise. Our embedded consultancy offer means clients can move from procurement to programme advisory with the same trusted partner.',
+  },
+];
+---
+
+<Section bg="default" space="lg">
+  <h2 class="nx-why__title">Why Northaxis</h2>
+  <div class="nx-why__grid">
+    {
+      items.map((it) => {
+        const Icon = it.Icon;
+        return (
+          <div class="nx-why__item">
+            <span class="nx-why__icon" aria-hidden="true"><Icon /></span>
+            <div>
+              <h3 class="nx-why__name">{it.title}</h3>
+              <p class="nx-why__body">{it.body}</p>
+            </div>
+          </div>
+        );
+      })
+    }
+  </div>
+</Section>
+
+<style>
+  .nx-why__title {
+    margin: 0 0 2rem;
+    font-size: clamp(1.6rem, 1.2rem + 1.4vw, 2.1rem);
+    font-weight: 700;
+    color: var(--color-ink);
+  }
+  .nx-why__grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1.75rem 2.5rem;
+  }
+  @media (min-width: 700px) {
+    .nx-why__grid {
+      grid-template-columns: 1fr 1fr;
+    }
+  }
+  .nx-why__item {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    gap: 1rem;
+    align-items: start;
+  }
+  .nx-why__icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 2.5rem;
+    height: 2.5rem;
+    flex: none;
+    border-radius: 0.6rem;
+    background: var(--color-teal-light);
+    color: var(--color-teal);
+  }
+  .nx-why__icon :global(svg) {
+    width: 1.3rem;
+    height: 1.3rem;
+  }
+  .nx-why__name {
+    margin: 0.2rem 0 0.4rem;
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: var(--color-ink);
+  }
+  .nx-why__body {
+    margin: 0;
+    line-height: 1.6;
+    color: var(--color-grey);
+    font-size: 0.95rem;
+  }
+</style>

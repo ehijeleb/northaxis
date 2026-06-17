@@ -1,10 +1,17 @@
 ---
 // Homepage (Phase C). Promise-led: hero leads with the company promise, services sit deeper.
-// Sections are added across Steps 6-8. Copy in §6 sections is VERBATIM from the brief.
+// Copy in §6 sections is VERBATIM from the brief (em dashes preserved).
 import Base from '../layouts/Base.astro';
 import Hero from '../components/home/Hero.astro';
 import CredibilityStrip from '../components/home/CredibilityStrip.astro';
 import CompanyPromise from '../components/home/CompanyPromise.astro';
+import ServicesGrid from '../components/home/ServicesGrid.astro';
+import WhyNorthaxis from '../components/home/WhyNorthaxis.astro';
+import SectorsStrip from '../components/home/SectorsStrip.astro';
+import Section from '../components/ui/Section.astro';
+import CtaBand from '../components/ui/CtaBand.astro';
+import Button from '../components/ui/Button.astro';
+import { CAPABILITY_STATEMENT_URL } from '../config/site';
 
 const description =
   'Northaxis Integrated Services delivers procurement, technology, and energy solutions, with embedded advisory, to government institutions, development organisations, and private sector clients across Nigeria.';
@@ -14,5 +21,19 @@ const description =
   <Hero />
   <CredibilityStrip />
   <CompanyPromise />
-  {/* Step 8: services grid, why Northaxis, sectors, CTA band. */}
+  <ServicesGrid />
+  <WhyNorthaxis />
+  <SectorsStrip />
+
+  {/* §6.7 homepage CTA band (verbatim headline + body). */}
+  <Section bg="default" space="lg">
+    <CtaBand
+      title="Ready to work with a partner who delivers across the full project lifecycle?"
+      sub="Talk to us about your procurement, technology, or energy needs — whether you need equipment on-site or a strategic adviser in the room."
+      variant="teal"
+    >
+      <Button variant="primary" onDark href="/contact" arrow>Start a conversation</Button>
+      <Button variant="secondary" onDark href={CAPABILITY_STATEMENT_URL} arrow>Download capability statement</Button>
+    </CtaBand>
+  </Section>
 </Base>
