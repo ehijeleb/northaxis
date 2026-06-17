@@ -10,26 +10,13 @@ import Truck from 'lucide-astro/Truck';
 import Server from 'lucide-astro/Server';
 import Zap from 'lucide-astro/Zap';
 import Compass from 'lucide-astro/Compass';
+import { PROCUREMENT, ICT, ENERGY } from '../../data/services';
 
+// Titles + descriptions come from the shared service data (Brief §6.4 summaries).
 const services = [
-  {
-    Icon: Truck,
-    title: 'Procurement, supply chain & logistics',
-    desc: 'Vendor sourcing, equipment procurement, import and delivery for capital projects — with procurement strategy and supply chain advisory.',
-    href: '/what-we-do/procurement',
-  },
-  {
-    Icon: Server,
-    title: 'ICT services',
-    desc: 'Hardware supply, software deployment, network infrastructure and data systems — with digital transformation and e-government advisory.',
-    href: '/what-we-do/ict',
-  },
-  {
-    Icon: Zap,
-    title: 'Energy & sustainability',
-    desc: 'Petroleum products, power systems and renewable energy equipment — with energy audit, electrification planning and sustainability advisory.',
-    href: '/what-we-do/energy',
-  },
+  { Icon: Truck, title: PROCUREMENT.label, desc: PROCUREMENT.summary, href: PROCUREMENT.href },
+  { Icon: Server, title: ICT.label, desc: ICT.summary, href: ICT.href },
+  { Icon: Zap, title: ENERGY.label, desc: ENERGY.summary, href: ENERGY.href },
 ];
 
 const consultancy = {

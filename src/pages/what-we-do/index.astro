@@ -1,0 +1,169 @@
+---
+// "What we do" hub (Phase E, Step 12). Brief description of all three lines + the consultancy
+// layer explained, linking to each service page and the consultancy page. The brief has no
+// verbatim copy for this hub, so the framing copy is my own voice: no em dashes. Line summaries
+// reuse the approved Brief §6.4 text from the shared service data.
+import Base from '../../layouts/Base.astro';
+import PageHero from '../../components/ui/PageHero.astro';
+import Section from '../../components/ui/Section.astro';
+import Card from '../../components/ui/Card.astro';
+import Button from '../../components/ui/Button.astro';
+import CtaBand from '../../components/ui/CtaBand.astro';
+import ArrowRight from 'lucide-astro/ArrowRight';
+import Truck from 'lucide-astro/Truck';
+import Server from 'lucide-astro/Server';
+import Zap from 'lucide-astro/Zap';
+import Compass from 'lucide-astro/Compass';
+import { PROCUREMENT, ICT, ENERGY } from '../../data/services';
+
+const crumbs = [{ label: 'Home', href: '/' }, { label: 'What we do' }];
+
+const lines = [
+  { Icon: Truck, data: PROCUREMENT },
+  { Icon: Server, data: ICT },
+  { Icon: Zap, data: ENERGY },
+];
+
+const description =
+  'Northaxis delivers three integrated service lines, procurement and logistics, ICT, and energy, each backed by embedded advisory for government and institutional clients across Nigeria.';
+---
+
+<Base title="What we do — integrated procurement, ICT & energy | Northaxis" description={description}>
+  <PageHero
+    crumbs={crumbs}
+    headline="What we do"
+    sub="Three integrated service lines, each backed by embedded advisory. We deliver the equipment and the strategy from a single accountable partner, so government and institutional clients can move from supply to programme advice without changing firms."
+  >
+    <Button variant="primary" onDark href="/contact" arrow>Get in touch</Button>
+  </PageHero>
+
+  {/* Three service lines */}
+  <Section bg="white" space="lg">
+    <h2 class="nx-h2">Our service lines</h2>
+    <div class="nx-lines">
+      {
+        lines.map(({ Icon, data }) => (
+          <Card href={data.href} hover class="nx-line">
+            <span class="nx-line__icon" aria-hidden="true"><Icon /></span>
+            <div>
+              <h3 class="nx-line__title">{data.label}</h3>
+              <p class="nx-line__desc">{data.summary}</p>
+              <span class="nx-line__more">Explore this line <ArrowRight aria-hidden="true" /></span>
+            </div>
+          </Card>
+        ))
+      }
+    </div>
+  </Section>
+
+  {/* Consultancy layer explained */}
+  <Section bg="tealLight" space="lg">
+    <div class="nx-layer">
+      <span class="nx-line__icon" aria-hidden="true"><Compass /></span>
+      <div>
+        <h2 class="nx-h2 nx-layer__title">The consultancy layer</h2>
+        <p class="nx-layer__body">
+          Advisory runs through every line. Whether you need a procurement strategy, a digital
+          transformation roadmap, or an energy transition plan, you can engage our consultancy on
+          its own or alongside a supply contract, with the same trusted partner. This is what makes
+          Northaxis more than a supplier.
+        </p>
+        <Button variant="primary" href="/consultancy" arrow>Explore consultancy</Button>
+      </div>
+    </div>
+  </Section>
+
+  {/* CTA */}
+  <Section bg="default" space="lg">
+    <CtaBand
+      title="Not sure which line fits your requirement?"
+      sub="Tell us what you need and we will point you to the right service, or the right combination of services and advisory."
+      variant="teal"
+    >
+      <Button variant="primary" onDark href="/contact" arrow>Get in touch</Button>
+    </CtaBand>
+  </Section>
+</Base>
+
+<style>
+  .nx-h2 {
+    margin: 0 0 1.5rem;
+    font-size: clamp(1.5rem, 1.2rem + 1.4vw, 2rem);
+    font-weight: 700;
+    color: var(--color-ink);
+  }
+  .nx-lines {
+    display: grid;
+    gap: 1.25rem;
+  }
+  .nx-line {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    gap: 1.25rem;
+    align-items: start;
+  }
+  .nx-line__icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 3rem;
+    height: 3rem;
+    flex: none;
+    border-radius: 0.7rem;
+    background: var(--color-teal-light);
+    color: var(--color-teal);
+  }
+  .nx-line__icon :global(svg) {
+    width: 1.5rem;
+    height: 1.5rem;
+  }
+  .nx-line__title {
+    margin: 0.25rem 0 0.4rem;
+    font-size: 1.2rem;
+    font-weight: 600;
+    color: var(--color-ink);
+  }
+  .nx-line__desc {
+    margin: 0 0 0.75rem;
+    color: var(--color-grey);
+    line-height: 1.6;
+  }
+  .nx-line__more {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: var(--color-teal);
+  }
+  .nx-line__more :global(svg) {
+    width: 1rem;
+    height: 1rem;
+    transition: transform 180ms ease-out;
+  }
+  .nx-line:hover .nx-line__more :global(svg) {
+    transform: translateX(3px);
+  }
+
+  .nx-layer {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1.25rem;
+    align-items: start;
+  }
+  @media (min-width: 700px) {
+    .nx-layer {
+      grid-template-columns: auto 1fr;
+    }
+  }
+  .nx-layer__title {
+    margin-bottom: 0.75rem;
+  }
+  .nx-layer__body {
+    margin: 0 0 1.5rem;
+    max-width: 60ch;
+    color: var(--color-ink);
+    line-height: 1.7;
+    font-size: 1.05rem;
+  }
+</style>

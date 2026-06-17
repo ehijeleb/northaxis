@@ -25,6 +25,8 @@ export interface ServiceData {
   label: string;
   /** Hero H1 headline — may be longer than the label (e.g. with a tagline). */
   heroHeadline: string;
+  /** Short 2-line summary (Brief §6.4) reused on the homepage grid and the "What we do" hub. */
+  summary: string;
   metaDescription: string;
   hero: {
     sub: string;
@@ -51,6 +53,8 @@ export const PROCUREMENT: ServiceData = {
   href: '/what-we-do/procurement',
   label: 'Procurement, supply chain & logistics',
   heroHeadline: 'Procurement, supply chain & logistics',
+  summary:
+    'Vendor sourcing, equipment procurement, import and delivery for capital projects — with procurement strategy and supply chain advisory.',
   metaDescription:
     'Northaxis sources, procures, imports, and delivers equipment and materials for Nigerian infrastructure programmes, with procurement strategy advisory for government clients.',
   hero: {
@@ -148,6 +152,8 @@ export const ICT: ServiceData = {
   href: '/what-we-do/ict',
   label: 'ICT services',
   heroHeadline: 'ICT services — supply, deployment, and digital advisory',
+  summary:
+    'Hardware supply, software deployment, network infrastructure and data systems — with digital transformation and e-government advisory.',
   metaDescription:
     'Northaxis supplies and deploys ICT hardware, software, networks, and data systems for Nigerian government institutions and businesses, with digital transformation advisory.',
   hero: {
@@ -231,6 +237,8 @@ export const ENERGY: ServiceData = {
   href: '/what-we-do/energy',
   label: 'Energy & sustainability',
   heroHeadline: 'Energy supply, power systems & sustainability advisory',
+  summary:
+    'Petroleum products, power systems and renewable energy equipment — with energy audit, electrification planning and sustainability advisory.',
   metaDescription:
     'Northaxis supplies petroleum products, power generation, and renewable energy equipment across Nigeria, with energy audit, electrification planning, and sustainability advisory.',
   hero: {
