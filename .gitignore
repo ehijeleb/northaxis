@@ -1,0 +1,32 @@
+# build output
+dist/
+.output/
+.vercel/
+
+# dependencies
+node_modules/
+
+# astro
+.astro/
+
+# environment (NEVER commit secrets — Resend key, GA4 IDs live in Vercel env vars)
+.env
+.env.production
+.env*.local
+
+# logs
+npm-debug.log*
+*.log
+
+# local tooling / skills (not client code — kept out of the deliverable repo)
+.claude/
+.agents/
+skills-lock.json
+
+# CONFIDENTIAL — Website Design Brief ("for designer use only"). Never publish to the repo.
+document_pdf.pdf
+*.brief.pdf
+
+# os / editor
+.DS_Store
+Thumbs.db

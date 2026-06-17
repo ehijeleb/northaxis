@@ -1,0 +1,91 @@
+@import 'tailwindcss';
+
+/*
+  Northaxis design tokens — Section 2 of NORTHAXIS_BUILD_INSTRUCTIONS.md (LOCKED values).
+  Tailwind v4 CSS-first: defining tokens in @theme exposes them BOTH as CSS custom properties
+  (e.g. var(--color-teal)) AND as utilities (e.g. bg-teal, text-ink, font-serif).
+*/
+@theme {
+  /* Brand palette */
+  --color-teal: #0f6e56; /* primary: brand, heading accents, CTAs, logo */
+  --color-bg: #f9f9f7; /* warm off-white: backgrounds, section fills */
+  --color-teal-light: #e1f5ee; /* callouts, highlight strips, consultancy backgrounds */
+  --color-ink: #1a1a1a; /* body text, primary headings */
+  --color-grey: #5f5e5a; /* secondary text, captions, metadata */
+  --color-border: #cccccc; /* borders, dividers, card outlines */
+
+  /* Logo ascending bars */
+  --color-bar-short: #b4b2a9;
+  --color-bar-mid: #2c2c2a;
+  --color-bar-tall: #0f6e56;
+  --color-bar-cap: #5dcaa5;
+
+  /* Typography — self-hosted via Fontsource (imported in Base.astro) */
+  --font-sans: 'Inter Variable', system-ui, -apple-system, Segoe UI, Roboto, sans-serif;
+  --font-serif: 'Source Serif 4', Georgia, Cambria, 'Times New Roman', serif;
+}
+
+/* Base document styles */
+:root {
+  color-scheme: light;
+}
+
+html {
+  font-family: var(--font-sans);
+  font-size: 15px; /* mobile base (15px) */
+  line-height: 1.6;
+  color: var(--color-ink);
+  background-color: var(--color-bg);
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+@media (min-width: 768px) {
+  html {
+    font-size: 16px; /* desktop base (16px) */
+  }
+}
+
+body {
+  margin: 0;
+  min-height: 100svh;
+}
+
+h1,
+h2,
+h3,
+h4 {
+  line-height: 1.2;
+  text-wrap: balance;
+}
+
+p {
+  text-wrap: pretty;
+}
+
+/* Respect reduced-motion site-wide: kill non-essential animation, keep content usable. */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* Accessible skip-link target styling (link lives in Base.astro). */
+.skip-link {
+  position: absolute;
+  left: -9999px;
+  top: 0;
+  z-index: 100;
+  padding: 0.5rem 1rem;
+  background: var(--color-teal);
+  color: #fff;
+  border-radius: 0 0 0.25rem 0;
+}
+.skip-link:focus {
+  left: 0;
+}

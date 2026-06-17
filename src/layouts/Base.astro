@@ -1,0 +1,48 @@
+---
+// Base layout — html shell, self-hosted fonts, skip-link, meta slots.
+// Global furniture (Header/Footer/WhatsApp/cookie banner) is added in Phase B (Steps 3–4).
+
+// Self-host fonts (no render-blocking Google Fonts request).
+import '@fontsource-variable/inter';
+import '@fontsource/source-serif-4'; // serif, consultancy contexts only
+import '../styles/tokens.css';
+
+interface Props {
+  title?: string;
+  description?: string;
+}
+
+const {
+  title = 'Northaxis Integrated Services',
+  description = 'Northaxis Integrated Services — integrated procurement, ICT, energy, and advisory for the public sector in Edo State and across Nigeria.',
+} = Astro.props;
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta name="generator" content={Astro.generator} />
+
+    <title>{title}</title>
+    <meta name="description" content={description} />
+
+    {/* Per-page extra head content (canonical, OG, JSON-LD) goes here from Step 20. */}
+    <slot name="head" />
+  </head>
+  <body>
+    <a class="skip-link" href="#main">Skip to content</a>
+
+    {/* Header island slots in at Step 3. */}
+    <slot name="header" />
+
+    <main id="main">
+      <slot />
+    </main>
+
+    {/* Footer + global furniture slot in at Step 4. */}
+    <slot name="footer" />
+  </body>
+</html>

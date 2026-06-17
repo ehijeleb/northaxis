@@ -1,0 +1,92 @@
+---
+// THROWAWAY token test page (Step 1). Delete before launch.
+// Renders every Section 2 brand colour and both self-hosted fonts for visual verification.
+import Base from '../../layouts/Base.astro';
+
+const palette = [
+  { name: '--color-teal', hex: '#0F6E56', use: 'primary — brand, CTAs, logo', dark: true },
+  { name: '--color-bg', hex: '#F9F9F7', use: 'warm off-white — backgrounds', dark: false },
+  { name: '--color-teal-light', hex: '#E1F5EE', use: 'callouts, consultancy', dark: false },
+  { name: '--color-ink', hex: '#1A1A1A', use: 'body text, headings', dark: true },
+  { name: '--color-grey', hex: '#5F5E5A', use: 'secondary text, captions', dark: true },
+  { name: '--color-border', hex: '#CCCCCC', use: 'borders, dividers', dark: false },
+];
+
+const bars = [
+  { name: '--color-bar-short', hex: '#B4B2A9' },
+  { name: '--color-bar-mid', hex: '#2C2C2A' },
+  { name: '--color-bar-tall', hex: '#0F6E56' },
+  { name: '--color-bar-cap', hex: '#5DCAA5' },
+];
+---
+
+<Base title="Token test — Northaxis (dev only)">
+  <section class="mx-auto max-w-5xl px-6 py-16">
+    <p class="text-sm font-medium tracking-wide text-grey uppercase">Dev only — delete before launch</p>
+    <h1 class="mt-2 text-3xl font-bold text-ink">Design tokens</h1>
+
+    <h2 class="mt-12 text-xl font-bold text-ink">Brand palette (Section 2)</h2>
+    <div class="mt-4 grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
+      {
+        palette.map((c) => (
+          <div class="overflow-hidden rounded-lg border border-border">
+            <div
+              class="flex h-24 items-end p-3"
+              style={`background:${c.hex};color:${c.dark ? '#fff' : '#1A1A1A'}`}
+            >
+              <span class="text-sm font-medium">{c.hex}</span>
+            </div>
+            <div class="bg-white p-3">
+              <code class="text-sm text-ink">{c.name}</code>
+              <p class="mt-1 text-xs text-grey">{c.use}</p>
+            </div>
+          </div>
+        ))
+      }
+    </div>
+
+    <h2 class="mt-12 text-xl font-bold text-ink">Logo bars</h2>
+    <div class="mt-4 flex flex-wrap gap-4">
+      {
+        bars.map((b) => (
+          <div class="text-center">
+            <div class="h-16 w-16 rounded border border-border" style={`background:${b.hex}`} />
+            <code class="mt-2 block text-xs text-grey">{b.hex}</code>
+          </div>
+        ))
+      }
+    </div>
+
+    <h2 class="mt-12 text-xl font-bold text-ink">Typography</h2>
+    <div class="mt-4 space-y-6">
+      <div>
+        <p class="text-xs tracking-wide text-grey uppercase">Inter (sans) — headings &amp; body</p>
+        <p style="font-family:var(--font-sans)" class="text-4xl font-bold text-ink">
+          Building the infrastructure Nigeria needs
+        </p>
+        <p style="font-family:var(--font-sans)" class="mt-2 text-base text-ink">
+          Regular body text at base size. The quick brown fox jumps over the lazy dog. 0123456789.
+        </p>
+      </div>
+      <div>
+        <p class="text-xs tracking-wide text-grey uppercase">
+          Source Serif 4 (serif) — consultancy only
+        </p>
+        <p style="font-family:var(--font-serif)" class="text-3xl text-ink">
+          Quiet intellectual weight on the advisory layer.
+        </p>
+        <p style="font-family:var(--font-serif)" class="mt-2 text-base text-grey">
+          Used sparingly for pull quotes and advisory intros. The quick brown fox jumps over the lazy dog.
+        </p>
+      </div>
+    </div>
+
+    <h2 class="mt-12 text-xl font-bold text-ink">Tailwind utility check</h2>
+    <div class="mt-4 flex flex-wrap gap-3">
+      <span class="rounded bg-teal px-3 py-1 text-sm text-white">bg-teal / text-white</span>
+      <span class="rounded bg-teal-light px-3 py-1 text-sm text-teal">bg-teal-light / text-teal</span>
+      <span class="rounded border border-border bg-white px-3 py-1 text-sm text-ink">border-border</span>
+      <span class="rounded px-3 py-1 text-sm text-grey">text-grey</span>
+    </div>
+  </section>
+</Base>
