@@ -1,0 +1,305 @@
+---
+// About us (Phase E, Step 13). The brief has no verbatim About copy, so this is my own voice:
+// no em dashes. Facts are drawn from Brief §1 (company profile). Directors, RC number, and team
+// photos are PLACEHOLDERS, flagged in BLOCKED_CONTENT. In Phase F (Step 19) the directors move to
+// a `team` content collection so the client can edit them; the local array below mirrors that shape.
+import Base from '../layouts/Base.astro';
+import PageHero from '../components/ui/PageHero.astro';
+import Section from '../components/ui/Section.astro';
+import Card from '../components/ui/Card.astro';
+import Button from '../components/ui/Button.astro';
+import CtaBand from '../components/ui/CtaBand.astro';
+import ShieldCheck from 'lucide-astro/ShieldCheck';
+import MapPin from 'lucide-astro/MapPin';
+import Truck from 'lucide-astro/Truck';
+import Handshake from 'lucide-astro/Handshake';
+import User from 'lucide-astro/User';
+
+const crumbs = [{ label: 'Home', href: '/' }, { label: 'About us' }];
+
+const values = [
+  {
+    Icon: ShieldCheck,
+    title: 'Integrity',
+    body: 'We operate with the documentation, compliance, and transparency that public sector procurement demands.',
+  },
+  {
+    Icon: MapPin,
+    title: 'Locally rooted',
+    body: 'We are based in Edo State and understand the procurement cycles and priorities of Nigerian government clients.',
+  },
+  {
+    Icon: Truck,
+    title: 'Delivery',
+    body: 'We are judged on what arrives on site and works, not on what is promised.',
+  },
+  {
+    Icon: Handshake,
+    title: 'Partnership',
+    body: 'We stay with clients from procurement through to programme advice, as one accountable partner.',
+  },
+];
+
+// PLACEHOLDER directors — replaced by the `team` content collection in Step 19. Names, titles,
+// bios, and photos are blocked items to be supplied by the client.
+const directors = [
+  { name: 'Director name to be confirmed', title: 'Director', bio: 'Biography to be supplied by the client.' },
+  { name: 'Director name to be confirmed', title: 'Director', bio: 'Biography to be supplied by the client.' },
+];
+
+const description =
+  'Northaxis Integrated Services Limited is a CAC-registered company in Benin City, Edo State, delivering procurement, ICT, and energy with embedded advisory for government and institutional clients across Nigeria.';
+---
+
+<Base title="About us | Northaxis Integrated Services" description={description}>
+  <PageHero
+    crumbs={crumbs}
+    headline="About Northaxis"
+    sub="A CAC-registered integrated solutions firm in Benin City, bringing procurement, technology, and energy together with embedded advisory, for government and institutional clients across Nigeria."
+  >
+    <Button variant="primary" onDark href="/contact" arrow>Get in touch</Button>
+  </PageHero>
+
+  {/* Who we are */}
+  <Section bg="default" width="narrow" space="lg">
+    <h2 class="nx-h2">Who we are</h2>
+    <p class="nx-prose">
+      Northaxis Integrated Services Limited is a CAC-registered company based in Benin City, Edo
+      State. We bring together procurement and logistics, ICT, and energy under one accountable
+      brand, with advisory embedded in every line. We work with state government MDAs, federal
+      agencies, development finance institutions, and private sector clients across Nigeria, in Edo
+      State, the South-South region, and with national delivery capacity.
+    </p>
+    <p class="nx-prose">
+      Founded in <span class="nx-ph">[year to be confirmed]</span>, Northaxis was built on a simple
+      observation: Nigeria's development challenges are rarely solved by a single capability. Clients
+      needed a partner who could supply the equipment, manage the logistics, deploy the technology,
+      and advise on the strategy, without coordinating several firms at once. We brought those
+      capabilities together so that government and institutional clients can move from supply to
+      strategy with one trusted partner.
+    </p>
+  </Section>
+
+  {/* Mission */}
+  <Section bg="tealLight" width="narrow" space="lg">
+    <h2 class="nx-h2">Our mission</h2>
+    <p class="nx-prose nx-prose--ink">
+      To help public sector and institutional clients deliver infrastructure and services that work,
+      by combining reliable supply with credible advisory. We measure success by projects completed,
+      systems that keep running, and clients who return.
+    </p>
+  </Section>
+
+  {/* Values */}
+  <Section bg="white" space="lg">
+    <h2 class="nx-h2">Our values</h2>
+    <div class="nx-vals">
+      {
+        values.map(({ Icon, title, body }) => (
+          <div class="nx-val">
+            <span class="nx-val__icon" aria-hidden="true"><Icon /></span>
+            <div>
+              <h3 class="nx-val__title">{title}</h3>
+              <p class="nx-val__body">{body}</p>
+            </div>
+          </div>
+        ))
+      }
+    </div>
+  </Section>
+
+  {/* Leadership (placeholder directors) */}
+  <Section bg="default" space="lg">
+    <h2 class="nx-h2">Leadership</h2>
+    <p class="nx-lead">Our directors lead the firm's delivery and advisory work. Full profiles are being prepared.</p>
+    <div class="nx-team">
+      {
+        directors.map((d) => (
+          <Card class="nx-member">
+            <span class="nx-member__photo" aria-hidden="true"><User /></span>
+            <h3 class="nx-member__name">{d.name}</h3>
+            <p class="nx-member__role">{d.title}</p>
+            <p class="nx-member__bio">{d.bio}</p>
+          </Card>
+        ))
+      }
+    </div>
+  </Section>
+
+  {/* CAC trust signal */}
+  <Section bg="white" width="narrow" space="md">
+    <div class="nx-trust">
+      <span class="nx-trust__icon" aria-hidden="true"><ShieldCheck /></span>
+      <p>
+        <strong>CAC registered and active.</strong> Northaxis Integrated Services Limited is
+        registered with the Corporate Affairs Commission. RC number
+        <span class="nx-ph">to be confirmed</span>.
+      </p>
+    </div>
+  </Section>
+
+  {/* CTA */}
+  <Section bg="default" space="lg">
+    <CtaBand
+      title="Work with a partner built for public sector delivery"
+      sub="Tell us about your requirement and we will show you how our integrated model can help."
+      variant="teal"
+    >
+      <Button variant="primary" onDark href="/contact" arrow>Get in touch</Button>
+      <Button variant="secondary" onDark href="/what-we-do">View our services</Button>
+    </CtaBand>
+  </Section>
+</Base>
+
+<style>
+  .nx-h2 {
+    margin: 0 0 1.25rem;
+    font-size: clamp(1.5rem, 1.2rem + 1.4vw, 2rem);
+    font-weight: 700;
+    color: var(--color-ink);
+  }
+  .nx-prose {
+    margin: 0 0 1.25rem;
+    font-size: 1.05rem;
+    line-height: 1.75;
+    color: var(--color-grey);
+  }
+  .nx-prose--ink {
+    color: var(--color-ink);
+  }
+  .nx-prose:last-child {
+    margin-bottom: 0;
+  }
+  /* Visible placeholder token */
+  .nx-ph {
+    color: var(--color-grey);
+    font-style: italic;
+    background: color-mix(in srgb, var(--color-border) 30%, transparent);
+    padding: 0 0.3rem;
+    border-radius: 0.25rem;
+  }
+
+  .nx-vals {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1.5rem 2.5rem;
+  }
+  @media (min-width: 700px) {
+    .nx-vals {
+      grid-template-columns: 1fr 1fr;
+    }
+  }
+  .nx-val {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    gap: 1rem;
+    align-items: start;
+  }
+  .nx-val__icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 2.5rem;
+    height: 2.5rem;
+    flex: none;
+    border-radius: 0.6rem;
+    background: var(--color-teal-light);
+    color: var(--color-teal);
+  }
+  .nx-val__icon :global(svg) {
+    width: 1.3rem;
+    height: 1.3rem;
+  }
+  .nx-val__title {
+    margin: 0.2rem 0 0.4rem;
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: var(--color-ink);
+  }
+  .nx-val__body {
+    margin: 0;
+    line-height: 1.6;
+    color: var(--color-grey);
+    font-size: 0.95rem;
+  }
+
+  .nx-lead {
+    margin: -0.5rem 0 1.75rem;
+    color: var(--color-grey);
+    max-width: 55ch;
+  }
+  .nx-team {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1.25rem;
+  }
+  @media (min-width: 640px) {
+    .nx-team {
+      grid-template-columns: 1fr 1fr;
+    }
+  }
+  .nx-member__photo {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 4rem;
+    height: 4rem;
+    border-radius: 9999px;
+    background: var(--color-bg);
+    border: 1px solid var(--color-border);
+    color: var(--color-grey);
+    margin-bottom: 1rem;
+  }
+  .nx-member__photo :global(svg) {
+    width: 1.8rem;
+    height: 1.8rem;
+  }
+  .nx-member__name {
+    margin: 0 0 0.2rem;
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: var(--color-ink);
+  }
+  .nx-member__role {
+    margin: 0 0 0.6rem;
+    font-size: 0.9rem;
+    font-weight: 500;
+    color: var(--color-teal);
+  }
+  .nx-member__bio {
+    margin: 0;
+    color: var(--color-grey);
+    font-size: 0.92rem;
+    line-height: 1.6;
+  }
+
+  .nx-trust {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    gap: 1rem;
+    align-items: center;
+    padding: 1.25rem 1.5rem;
+    background: var(--color-teal-light);
+    border-radius: 0.75rem;
+  }
+  .nx-trust p {
+    margin: 0;
+    color: var(--color-ink);
+    line-height: 1.6;
+  }
+  .nx-trust__icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 2.5rem;
+    height: 2.5rem;
+    flex: none;
+    border-radius: 0.6rem;
+    background: #fff;
+    color: var(--color-teal);
+  }
+  .nx-trust__icon :global(svg) {
+    width: 1.4rem;
+    height: 1.4rem;
+  }
+</style>

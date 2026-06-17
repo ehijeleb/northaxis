@@ -41,3 +41,6 @@ Legend: ☐ outstanding · ☑ supplied
 - 2026-06-17 (Step 4): wired placeholders into the footer — LinkedIn URL (`https://www.linkedin.com/`),
   email (`info@northaxisintegrated.com`), office address (`Benin City, Edo State, Nigeria`), each
   shown with a "to be confirmed" hint. Swap when client supplies real values.
+- 2026-06-17 (Step 13): About page placeholders — year of establishment `[year to be confirmed]`,
+  two placeholder directors (name/title/bio to be confirmed; move to `team` collection in Step 19),
+  RC number `to be confirmed`, team photos (User-icon avatar placeholder).
