@@ -1,0 +1,143 @@
+---
+/*
+  Logo — Northaxis "ascending bars" mark (Brief §5.5, Concept 3) + wordmark.
+  Three bars of increasing height: light grey (foundational stability), dark grey (operational
+  depth), deep teal body + lighter-teal cap (the tallest). Wordmark in bold caps to the right.
+
+  PLACEHOLDER: this is a faithful SVG approximation of the approved concept built from the locked
+  Section 2 colours. The finalised vector logo is a CRITICAL blocked item (see BLOCKED_CONTENT.md);
+  swap this mark when the .svg arrives — the API/props stay the same.
+
+  Props:
+    variant      'light' (dark mark on light bg) | 'dark' (white bars on dark bg). Default 'light'.
+    height       mark height in px. Default 28. Wordmark scales from this.
+    showWordmark show the NORTHAXIS wordmark beside the mark. Default true.
+    animated     opt into the one-time staggered rise on first load. Default false.
+                 Always gated behind prefers-reduced-motion (static for reduced-motion users).
+    class        extra classes on the root.
+*/
+interface Props {
+  variant?: 'light' | 'dark';
+  height?: number;
+  showWordmark?: boolean;
+  animated?: boolean;
+  class?: string;
+}
+
+const {
+  variant = 'light',
+  height = 28,
+  showWordmark = true,
+  animated = false,
+  class: className = '',
+} = Astro.props;
+
+const isDark = variant === 'dark';
+const barFill = isDark ? '#FFFFFF' : null; // null = use exact concept colours
+const capFill = '#5DCAA5'; // cap stays teal on both variants
+
+// Mark geometry: bottoms aligned at y=34; heights 14 / 22 / 30; cap = top 5 of the tall bar.
+const markW = 34;
+const markH = 36;
+
+const titleColor = isDark ? '#FFFFFF' : 'var(--color-ink)';
+const subColor = isDark ? 'rgba(255,255,255,0.78)' : 'var(--color-grey)';
+
+const ariaLabel = 'Northaxis Integrated Services Limited';
+---
+
+<span
+  class:list={['logo', { animate: animated }, className]}
+  style={`--logo-h:${height}px`}
+  role={showWordmark ? undefined : 'img'}
+  aria-label={showWordmark ? undefined : ariaLabel}
+>
+  <svg
+    class="logo__mark"
+    viewBox={`0 0 ${markW} ${markH}`}
+    width={(markW / markH) * height}
+    height={height}
+    fill="none"
+    aria-hidden="true"
+    focusable="false"
+  >
+    <!-- Bar 1 — short, light grey -->
+    <rect class="bar bar1" x="1" y="20" width="8" height="14" fill={barFill ?? '#B4B2A9'} />
+    <!-- Bar 2 — medium, dark grey -->
+    <rect class="bar bar2" x="12" y="12" width="8" height="22" fill={barFill ?? '#2C2C2A'} />
+    <!-- Bar 3 — tall, deep teal body + lighter teal cap -->
+    <g class="bar bar3">
+      <rect x="23" y="9" width="8" height="25" fill={barFill ?? '#0F6E56'} />
+      <rect x="23" y="4" width="8" height="5" fill={capFill} />
+    </g>
+  </svg>
+
+  {
+    showWordmark && (
+      <span class="logo__word" aria-hidden="false">
+        <span class="logo__name" style={`color:${titleColor}`}>NORTHAXIS</span>
+        <span class="logo__sub" style={`color:${subColor}`}>Integrated Services Limited</span>
+      </span>
+    )
+  }
+</span>
+
+<style>
+  .logo {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5em;
+    font-size: calc(var(--logo-h) * 0.5);
+    line-height: 1;
+  }
+  .logo__mark {
+    flex: none;
+    display: block;
+  }
+  .logo__word {
+    display: flex;
+    flex-direction: column;
+    gap: 0.12em;
+    white-space: nowrap;
+  }
+  .logo__name {
+    font-family: var(--font-sans);
+    font-weight: 700;
+    font-size: 1.3em;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+  }
+  .logo__sub {
+    font-family: var(--font-sans);
+    font-weight: 500;
+    font-size: 0.62em;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+  }
+
+  /* One-time staggered rise — only for opted-in instances AND only when motion is welcome. */
+  @media (prefers-reduced-motion: no-preference) {
+    .logo.animate .bar {
+      transform-box: fill-box;
+      transform-origin: bottom;
+      animation: bar-rise 0.5s cubic-bezier(0.22, 1, 0.36, 1) both;
+    }
+    .logo.animate .bar1 {
+      animation-delay: 0.05s;
+    }
+    .logo.animate .bar2 {
+      animation-delay: 0.15s;
+    }
+    .logo.animate .bar3 {
+      animation-delay: 0.25s;
+    }
+  }
+  @keyframes bar-rise {
+    from {
+      transform: scaleY(0);
+    }
+    to {
+      transform: scaleY(1);
+    }
+  }
+</style>

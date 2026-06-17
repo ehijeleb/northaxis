@@ -2,6 +2,7 @@
 // THROWAWAY token test page (Step 1). Delete before launch.
 // Renders every Section 2 brand colour and both self-hosted fonts for visual verification.
 import Base from '../../layouts/Base.astro';
+import Logo from '../../components/Logo.astro';
 
 const palette = [
   { name: '--color-teal', hex: '#0F6E56', use: 'primary — brand, CTAs, logo', dark: true },
@@ -45,7 +46,41 @@ const bars = [
       }
     </div>
 
-    <h2 class="mt-12 text-xl font-bold text-ink">Logo bars</h2>
+    <h2 class="mt-12 text-xl font-bold text-ink">Logo component</h2>
+    <div class="mt-4 grid gap-4 sm:grid-cols-2">
+      <div class="flex flex-col gap-5 rounded-lg border border-border bg-white p-6">
+        <span class="text-xs tracking-wide text-grey uppercase">variant="light"</span>
+        <Logo variant="light" height={40} />
+        <Logo variant="light" height={28} />
+        <div>
+          <span class="text-[11px] text-grey">at 24px (mobile legibility check):</span>
+          <div class="mt-1"><Logo variant="light" height={24} /></div>
+        </div>
+        <div>
+          <span class="text-[11px] text-grey">mark only (showWordmark=false):</span>
+          <div class="mt-1"><Logo variant="light" height={32} showWordmark={false} /></div>
+        </div>
+      </div>
+      <div class="flex flex-col gap-5 rounded-lg border border-border p-6" style="background:#1A1A1A">
+        <span class="text-xs tracking-wide uppercase" style="color:#bdbcb8">variant="dark"</span>
+        <Logo variant="dark" height={40} />
+        <Logo variant="dark" height={28} />
+        <div>
+          <span class="text-[11px]" style="color:#bdbcb8">at 24px:</span>
+          <div class="mt-1"><Logo variant="dark" height={24} /></div>
+        </div>
+        <div>
+          <span class="text-[11px]" style="color:#bdbcb8">mark only:</span>
+          <div class="mt-1"><Logo variant="dark" height={32} showWordmark={false} /></div>
+        </div>
+      </div>
+    </div>
+    <div class="mt-4 rounded-lg border border-border bg-white p-6">
+      <span class="text-xs tracking-wide text-grey uppercase">animated (reload to replay; static with reduced-motion)</span>
+      <div class="mt-3"><Logo variant="light" height={44} animated /></div>
+    </div>
+
+    <h2 class="mt-12 text-xl font-bold text-ink">Logo bar colours</h2>
     <div class="mt-4 flex flex-wrap gap-4">
       {
         bars.map((b) => (
