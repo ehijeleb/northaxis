@@ -1,0 +1,10 @@
+---
+// Line 3 — Energy & sustainability (Brief §7.3). Shared ServicePage template (no equipment, 4 steps).
+import Base from '../../layouts/Base.astro';
+import ServicePage from '../../components/service/ServicePage.astro';
+import { ENERGY } from '../../data/services';
+---
+
+<Base title={`${ENERGY.label} — Northaxis`} description={ENERGY.metaDescription}>
+  <ServicePage data={ENERGY} />
+</Base>

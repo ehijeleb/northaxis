@@ -39,7 +39,7 @@ function splitServices(body: string): { lead: string; services?: string } {
   <div class="nx-shero__bg" aria-hidden="true"></div>
   <div class="nx-shero__inner">
     <Breadcrumb items={crumbs} class="nx-shero__crumb" />
-    <h1 id="nx-shero-title" class="nx-shero__title">{data.label}</h1>
+    <h1 id="nx-shero-title" class="nx-shero__title">{data.heroHeadline}</h1>
     <p class="nx-shero__sub">{data.hero.sub}</p>
     <div class="nx-shero__actions">
       <Button variant="primary" onDark href={CAPABILITY_STATEMENT_URL} arrow>Request a capability statement</Button>
@@ -122,7 +122,7 @@ function splitServices(body: string): { lead: string; services?: string } {
 {/* 8. Consultancy services — directly above the CTA band (cross-cutting advisory register) */}
 <Section bg="tealLight" space="lg">
   <h2 class="nx-h2">Consultancy services</h2>
-  <p class="nx-consult__intro">{data.consultancyIntro}</p>
+  {data.consultancyIntro && <p class="nx-consult__intro">{data.consultancyIntro}</p>}
   <div class="nx-grid2">
     {
       data.consultancy.map((c) => (

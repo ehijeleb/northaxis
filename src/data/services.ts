@@ -21,9 +21,10 @@ export interface EquipmentTile {
 export interface ServiceData {
   slug: string;
   href: string;
-  /** Breadcrumb + hero headline label. */
+  /** Breadcrumb + nav + enquiry label (e.g. "ICT services"). */
   label: string;
-  /** Short nav/menu label if different (optional). */
+  /** Hero H1 headline — may be longer than the label (e.g. with a tagline). */
+  heroHeadline: string;
   metaDescription: string;
   hero: {
     sub: string;
@@ -35,7 +36,8 @@ export interface ServiceData {
   capabilities: TitleBody[];
   equipment?: EquipmentTile[];
   delivery: TitleBody[];
-  consultancyIntro: string;
+  /** Optional lead sentence above the consultancy cards (Line 1 only). */
+  consultancyIntro?: string;
   consultancy: TitleBody[];
   sectors: string[];
   cta: {
@@ -48,6 +50,7 @@ export const PROCUREMENT: ServiceData = {
   slug: 'procurement',
   href: '/what-we-do/procurement',
   label: 'Procurement, supply chain & logistics',
+  heroHeadline: 'Procurement, supply chain & logistics',
   metaDescription:
     'Northaxis sources, procures, imports, and delivers equipment and materials for Nigerian infrastructure programmes, with procurement strategy advisory for government clients.',
   hero: {
@@ -140,7 +143,176 @@ export const PROCUREMENT: ServiceData = {
   },
 };
 
-/** Registry — extended in Step 10. */
+export const ICT: ServiceData = {
+  slug: 'ict',
+  href: '/what-we-do/ict',
+  label: 'ICT services',
+  heroHeadline: 'ICT services — supply, deployment, and digital advisory',
+  metaDescription:
+    'Northaxis supplies and deploys ICT hardware, software, networks, and data systems for Nigerian government institutions and businesses, with digital transformation advisory.',
+  hero: {
+    sub: 'We supply and deploy the technology infrastructure that Nigerian government institutions and businesses need — and we advise on the digital strategies that make it work over the long term.',
+  },
+  intro: {
+    quote:
+      'Technology only transforms when it is deployed correctly and supported strategically. We do both.',
+    body: 'The gap between purchasing technology and making it work is where most government ICT projects fail. Northaxis Integrated Services bridges that gap — supplying hardware, deploying software, configuring networks, and building the data systems that underpin modern public service delivery. For clients who want more than a supplier, we bring digital transformation advisory, ICT systems audit, and e-government implementation support that turns technology investment into lasting institutional capability.',
+  },
+  capabilities: [
+    {
+      title: 'Hardware supply & deployment',
+      body: 'Procurement and deployment of computers, servers, networking equipment, and peripherals for government and private sector clients. Services: Specification, sourcing, procurement, delivery, installation, configuration.',
+    },
+    {
+      title: 'Software licensing & deployment',
+      body: 'Supply and installation of productivity software, specialist government systems, and enterprise platforms. Services: Licensing, installation, user setup, integration support.',
+    },
+    {
+      title: 'Network infrastructure',
+      body: 'Design and deployment of local area networks, wide area networks, and internet connectivity solutions. Services: Network design, cabling, router and switch configuration, testing and commissioning.',
+    },
+    {
+      title: 'Data collection & management systems',
+      body: 'Supply and configuration of data capture, storage, and reporting systems for MDAs and development programmes. Services: System specification, deployment, training, ongoing support.',
+    },
+  ],
+  delivery: [
+    {
+      title: 'Technical assessment',
+      body: 'Review of existing infrastructure, user requirements, and connectivity context before any procurement recommendation is made.',
+    },
+    {
+      title: 'Specification & procurement',
+      body: 'Equipment and software specified to match the assessed requirements. Procurement aligned to government frameworks and budgetary constraints.',
+    },
+    {
+      title: 'Deployment & configuration',
+      body: 'Hardware installed, software configured, and network commissioned on-site by our technical team. All deployment is documented.',
+    },
+    {
+      title: 'Training & handover',
+      body: 'End-user training delivered before formal handover. Support documentation provided. Optional ongoing maintenance agreement available.',
+    },
+  ],
+  consultancy: [
+    {
+      title: 'Digital transformation strategy',
+      body: 'Advising government institutions on technology roadmaps, digital service design, and transformation programme management.',
+    },
+    {
+      title: 'ICT systems audit & advisory',
+      body: 'Independent review of existing ICT infrastructure, identifying gaps, risks, and optimisation opportunities.',
+    },
+    {
+      title: 'Cyber security readiness review',
+      body: "Assessment of an organisation's cyber security posture against Nigerian and international standards, with a prioritised remediation roadmap.",
+    },
+    {
+      title: 'e-Government implementation support',
+      body: 'Advisory and programme management for e-government initiatives — including citizen-facing digital services, internal workflow digitisation, and inter-agency data sharing.',
+    },
+  ],
+  sectors: [
+    'Education & schools',
+    'Health sector',
+    'State government MDAs',
+    'Federal agencies',
+    'Development finance institutions',
+    'Private sector',
+  ],
+  cta: {
+    headline: 'Have an ICT supply or digital advisory requirement?',
+    body: 'From a school computer lab to a government digital transformation programme, our team is ready to scope your requirement and propose a solution.',
+  },
+};
+
+export const ENERGY: ServiceData = {
+  slug: 'energy',
+  href: '/what-we-do/energy',
+  label: 'Energy & sustainability',
+  heroHeadline: 'Energy supply, power systems & sustainability advisory',
+  metaDescription:
+    'Northaxis supplies petroleum products, power generation, and renewable energy equipment across Nigeria, with energy audit, electrification planning, and sustainability advisory.',
+  hero: {
+    sub: 'We supply petroleum products, power generation systems, and renewable energy equipment — and we advise government institutions and development agencies on electrification planning, energy efficiency, and the transition to sustainable energy.',
+  },
+  intro: {
+    quote:
+      'Reliable energy is not a luxury — it is the foundation of every other development priority. We supply it and help you plan for it.',
+    body: 'Unreliable power is one of the most persistent constraints on public service delivery across Nigeria. Northaxis Integrated Services addresses this directly — supplying the petroleum products, generators, solar systems, and industrial power equipment that keep government facilities, health centres, schools, and infrastructure projects operational. For institutions ready to think beyond the immediate supply problem, we bring energy audit, rural electrification planning, and sustainability advisory that aligns energy investment with long-term development goals.',
+  },
+  capabilities: [
+    {
+      title: 'Petroleum products supply',
+      body: 'Supply of petroleum products for government fleet management, facility operations, and project site energy needs. Services: Fuel supply agreements, delivery logistics, storage solutions.',
+    },
+    {
+      title: 'Power generation equipment',
+      body: 'Supply of generators, UPS systems, and diesel power plants for government facilities and project sites. Services: Specification, procurement, delivery, installation, maintenance planning.',
+    },
+    {
+      title: 'Solar & renewable energy equipment',
+      body: 'Supply of solar panels, inverters, batteries, and hybrid systems for off-grid and grid-tied applications. Services: System design support, equipment supply, installation coordination.',
+    },
+    {
+      title: 'Industrial energy equipment',
+      body: 'Supply of transformers, switchgear, cabling, and electrical systems for industrial and infrastructure projects. Services: Specification, procurement, import, delivery, commissioning support.',
+    },
+  ],
+  delivery: [
+    {
+      title: 'Energy needs assessment',
+      body: "Review of the facility's or project's energy requirements, current supply arrangements, and reliability constraints before any recommendation is made.",
+    },
+    {
+      title: 'Solution specification',
+      body: 'Energy supply or equipment solution specified to match assessed requirements, budget, and site conditions. Solar, generator, hybrid, and grid options evaluated where relevant.',
+    },
+    {
+      title: 'Procurement & delivery',
+      body: 'Equipment sourced, imported where necessary, and delivered to site. Full import documentation and customs clearance managed by Northaxis.',
+    },
+    {
+      title: 'Commissioning & handover',
+      body: 'Equipment installed and commissioned. Operator training delivered. Maintenance schedule and spare parts plan provided at handover.',
+    },
+  ],
+  consultancy: [
+    {
+      title: 'Energy audit & efficiency advisory',
+      body: "Independent assessment of a facility's or organisation's energy consumption, identifying efficiency opportunities and cost reduction measures.",
+    },
+    {
+      title: 'Rural electrification planning',
+      body: 'Advisory for state governments and development agencies on rural electrification programmes — technology selection, community engagement, rollout sequencing, and monitoring frameworks.',
+    },
+    {
+      title: 'Sustainability strategy for MDAs',
+      body: 'Advising government ministries and agencies on integrating sustainability commitments into operations, procurement, and infrastructure planning.',
+    },
+    {
+      title: 'Renewable transition roadmaps',
+      body: 'Structured advisory for organisations moving from diesel dependency to solar, hybrid, or grid-connected renewable energy — including business case development, technology selection, and phased implementation planning.',
+    },
+  ],
+  sectors: [
+    'Health sector',
+    'Education & schools',
+    'Road & transport',
+    'Water & sanitation',
+    'Oil & gas',
+    'Industrial & commercial',
+    'Rural development',
+  ],
+  cta: {
+    headline: 'Have an energy supply or sustainability advisory requirement?',
+    body: 'Whether you need fuel supply for a project site, solar panels for a health centre, or a rural electrification plan for your state, our team is ready to help.',
+  },
+};
+
+/** Registry of all service lines. */
 export const SERVICES: Record<string, ServiceData> = {
   procurement: PROCUREMENT,
+  ict: ICT,
+  energy: ENERGY,
 };

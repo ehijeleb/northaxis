@@ -1,0 +1,10 @@
+---
+// Line 2 — ICT services (Brief §7.2). Shared ServicePage template (no equipment block, 4 steps).
+import Base from '../../layouts/Base.astro';
+import ServicePage from '../../components/service/ServicePage.astro';
+import { ICT } from '../../data/services';
+---
+
+<Base title={`${ICT.label} — Northaxis`} description={ICT.metaDescription}>
+  <ServicePage data={ICT} />
+</Base>
