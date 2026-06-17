@@ -3,6 +3,8 @@
 // Sections are added across Steps 6-8. Copy in §6 sections is VERBATIM from the brief.
 import Base from '../layouts/Base.astro';
 import Hero from '../components/home/Hero.astro';
+import CredibilityStrip from '../components/home/CredibilityStrip.astro';
+import CompanyPromise from '../components/home/CompanyPromise.astro';
 
 const description =
   'Northaxis Integrated Services delivers procurement, technology, and energy solutions, with embedded advisory, to government institutions, development organisations, and private sector clients across Nigeria.';
@@ -10,5 +12,7 @@ const description =
 
 <Base title="Northaxis Integrated Services — integrated procurement, ICT & energy" description={description}>
   <Hero />
-  {/* Step 7: credibility strip + company promise. Step 8: services grid, why, sectors, CTA band. */}
+  <CredibilityStrip />
+  <CompanyPromise />
+  {/* Step 8: services grid, why Northaxis, sectors, CTA band. */}
 </Base>

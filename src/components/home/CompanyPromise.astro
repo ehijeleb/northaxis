@@ -1,0 +1,29 @@
+---
+// Homepage company promise (Step 7, Brief §6.3). Serif quote + verbatim body paragraph.
+// Copy is VERBATIM, em dashes included.
+import Section from '../ui/Section.astro';
+import PullQuote from '../ui/PullQuote.astro';
+---
+
+<Section bg="default" width="narrow" space="lg">
+  <PullQuote class="nx-promise__quote">
+    Nigeria's development challenges are rarely solved by a single capability. We built Northaxis to
+    be the firm that stays — across procurement, technology, and energy — delivering both the
+    equipment and the strategic advice until the work is done.
+  </PullQuote>
+  <p class="nx-promise__body">
+    Founded in Benin City, Northaxis Integrated Services Limited is a CAC-registered integrated
+    solutions firm. We work with state governments, federal agencies, development finance
+    institutions, and private sector clients who need a reliable, locally rooted partner with the
+    range and expertise to see complex projects through — from supply to strategy.
+  </p>
+</Section>
+
+<style>
+  .nx-promise__body {
+    margin: 1.75rem 0 0;
+    font-size: 1.05rem;
+    line-height: 1.7;
+    color: var(--color-grey);
+  }
+</style>

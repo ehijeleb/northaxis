@@ -1,0 +1,68 @@
+---
+// Homepage credibility strip (Step 7, Brief §6.2). Four trust signals, verbatim.
+// Big label (CAC / 3 / Edo / B2G) + description.
+import Section from '../ui/Section.astro';
+
+const cards = [
+  { label: 'CAC', desc: 'Registered & active with the Corporate Affairs Commission' },
+  { label: '3', desc: 'Integrated service lines across key sectors' },
+  { label: 'Edo', desc: 'State-based with national delivery capacity' },
+  { label: 'B2G', desc: 'Government & institutional procurement focus' },
+];
+---
+
+<Section bg="white" space="md">
+  <ul class="nx-cred">
+    {
+      cards.map((c) => (
+        <li class="nx-cred__card">
+          <span class="nx-cred__label">{c.label}</span>
+          <span class="nx-cred__desc">{c.desc}</span>
+        </li>
+      ))
+    }
+  </ul>
+</Section>
+
+<style>
+  .nx-cred {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+  @media (min-width: 560px) {
+    .nx-cred {
+      grid-template-columns: 1fr 1fr;
+    }
+  }
+  @media (min-width: 900px) {
+    .nx-cred {
+      grid-template-columns: repeat(4, 1fr);
+    }
+  }
+  .nx-cred__card {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    padding: 1.4rem 1.5rem;
+    background: var(--color-bg);
+    border: 1px solid var(--color-border);
+    border-radius: 0.75rem;
+    border-top: 3px solid var(--color-teal);
+  }
+  .nx-cred__label {
+    font-size: 2rem;
+    font-weight: 700;
+    line-height: 1;
+    color: var(--color-teal);
+    letter-spacing: -0.01em;
+  }
+  .nx-cred__desc {
+    font-size: 0.92rem;
+    line-height: 1.5;
+    color: var(--color-grey);
+  }
+</style>
