@@ -1,0 +1,66 @@
+---
+// Select — labelled dropdown with hint + error. Options via `options` prop or the default slot
+// (<option> elements). Mirrors TextField a11y.
+interface Option {
+  value: string;
+  label: string;
+}
+interface Props {
+  label: string;
+  name: string;
+  required?: boolean;
+  hint?: string;
+  error?: string;
+  options?: Option[];
+  value?: string;
+  placeholder?: string;
+  disabled?: boolean;
+  id?: string;
+  [key: string]: any;
+}
+
+const {
+  label,
+  name,
+  required = false,
+  hint,
+  error,
+  options,
+  value,
+  placeholder,
+  disabled = false,
+  id = name,
+  ...rest
+} = Astro.props;
+
+const hintId = hint ? `${id}-hint` : undefined;
+const errorId = error ? `${id}-error` : undefined;
+const describedBy = [hintId, errorId].filter(Boolean).join(' ') || undefined;
+---
+
+<div class:list={['nx-field', error && 'nx-field--invalid']}>
+  <label class="nx-field__label" for={id}>
+    {label}{required && <span class="nx-field__req" aria-hidden="true">*</span>}
+  </label>
+  <select
+    class="nx-field__control"
+    id={id}
+    name={name}
+    required={required}
+    disabled={disabled}
+    aria-describedby={describedBy}
+    aria-invalid={error ? 'true' : undefined}
+    {...rest}
+  >
+    {placeholder && <option value="" disabled selected={!value}>{placeholder}</option>}
+    {
+      options
+        ? options.map((o) => (
+            <option value={o.value} selected={value === o.value}>{o.label}</option>
+          ))
+        : <slot />
+    }
+  </select>
+  {hint && !error && <p class="nx-field__hint" id={hintId}>{hint}</p>}
+  {error && <p class="nx-field__error" id={errorId}>{error}</p>}
+</div>

@@ -1,0 +1,12 @@
+---
+// Pill / Tag — small rounded label (e.g. sectors strip).
+interface Props {
+  variant?: 'default' | 'teal';
+  class?: string;
+}
+const { variant = 'default', class: className } = Astro.props;
+---
+
+<span class:list={['nx-pill', variant === 'teal' && 'nx-pill--teal', className]}>
+  <slot />
+</span>

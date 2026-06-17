@@ -1,0 +1,21 @@
+---
+// FormStatus — accessible success/error message region for forms. Uses role="status" (polite)
+// for success and role="alert" (assertive) for errors so screen readers announce them.
+import CircleCheck from 'lucide-astro/CircleCheck';
+import CircleAlert from 'lucide-astro/CircleAlert';
+
+interface Props {
+  type: 'success' | 'error';
+  class?: string;
+}
+const { type, class: className } = Astro.props;
+---
+
+<div
+  class:list={['nx-formstatus', `nx-formstatus--${type}`, className]}
+  role={type === 'error' ? 'alert' : 'status'}
+  aria-live={type === 'error' ? 'assertive' : 'polite'}
+>
+  {type === 'success' ? <CircleCheck aria-hidden="true" /> : <CircleAlert aria-hidden="true" />}
+  <span><slot /></span>
+</div>

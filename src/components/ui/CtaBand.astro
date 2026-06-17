@@ -1,0 +1,19 @@
+---
+// CtaBand — full-width call-to-action band. Title + optional subtitle + action buttons (slot).
+// Use Button with onDark for the actions.
+interface Props {
+  title: string;
+  sub?: string;
+  variant?: 'teal' | 'ink';
+  class?: string;
+}
+const { title, sub, variant = 'teal', class: className } = Astro.props;
+---
+
+<div class:list={['nx-ctaband', `nx-ctaband--${variant}`, className]}>
+  <h2 class="nx-ctaband__title">{title}</h2>
+  {sub && <p class="nx-ctaband__sub">{sub}</p>}
+  <div class="nx-ctaband__actions">
+    <slot />
+  </div>
+</div>

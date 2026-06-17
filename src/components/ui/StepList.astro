@@ -1,0 +1,28 @@
+---
+// StepList — numbered delivery-process steps. Pass `steps`, or use the default slot for custom markup.
+interface Step {
+  title: string;
+  body?: string;
+}
+interface Props {
+  steps?: Step[];
+  class?: string;
+}
+const { steps, class: className } = Astro.props;
+---
+
+<ol class:list={['nx-steplist', className]}>
+  {
+    steps
+      ? steps.map((s, i) => (
+          <li class="nx-step">
+            <span class="nx-step__num" aria-hidden="true">{i + 1}</span>
+            <div>
+              <h3 class="nx-step__title">{s.title}</h3>
+              {s.body && <p class="nx-step__body">{s.body}</p>}
+            </div>
+          </li>
+        ))
+      : <slot />
+  }
+</ol>

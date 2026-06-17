@@ -4,6 +4,23 @@ Running log of non-obvious choices. Newest first.
 
 ---
 
+## Step 5 — UI primitives + gallery
+
+- **Primitive styles live in a global `src/styles/primitives.css` (class-based), not Astro scoped
+  styles.** This lets the same classes (`.nx-btn`, `.nx-field`, ...) be reused by the React form
+  islands in Phase F, which Astro scoped styles cannot reach. Astro components are thin wrappers
+  that apply the classes.
+- **Lucide via `lucide-astro` (inline SVG, zero client JS).** Import WITHOUT the `.astro` extension
+  (`import ArrowRight from 'lucide-astro/ArrowRight'`) — the package's `exports` map (`"./*" ->
+  "./dist/*.astro"`) appends it; adding `.astro` double-appends and fails to resolve.
+- **`:global(svg)` does NOT work in a plain global CSS file** (it's an Astro/CSS-modules construct;
+  Lightning CSS drops the rule). Use plain descendant selectors (`.nx-btn svg`) instead.
+- **Throwaway gallery at `/dev/gallery`** (same `/dev/*` namespace as tokens; delete before launch).
+- Components: Button (primary/secondary/ghost x sm/md/lg, link-or-button, arrow, on-dark, disabled),
+  Card (default/hover/consultancy/link), Section, Pill, PullQuote (serif), CtaBand (teal/ink),
+  StepList, TextField/TextArea/Select/FormStatus (label assoc, aria-describedby, aria-invalid,
+  role=status/alert). Error red `#b3261e` (~5.9:1 on white).
+
 ## Step 4 — Footer + global furniture
 
 - **Consent is the gate for all non-essential scripts.** `src/lib/consent.ts` stores the choice in

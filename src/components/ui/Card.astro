@@ -1,0 +1,24 @@
+---
+// Card — bordered container. Clickable when `href` is set (whole card is the link). The
+// `consultancy` variant uses the light-teal cross-cutting register.
+interface Props {
+  href?: string;
+  hover?: boolean;
+  variant?: 'default' | 'consultancy';
+  class?: string;
+  [key: string]: any;
+}
+
+const { href, hover = false, variant = 'default', class: className, ...rest } = Astro.props;
+const classes = [
+  'nx-card',
+  hover && 'nx-card--hover',
+  variant === 'consultancy' && 'nx-card--consultancy',
+  className,
+];
+const Tag = href ? 'a' : 'div';
+---
+
+<Tag class:list={classes} href={href} {...rest}>
+  <slot />
+</Tag>

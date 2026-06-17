@@ -1,0 +1,59 @@
+---
+// TextField — labelled text input with hint + error. Accessible: label/control association,
+// aria-describedby -> hint/error, aria-invalid on error, required marker.
+interface Props {
+  label: string;
+  name: string;
+  type?: string;
+  required?: boolean;
+  hint?: string;
+  error?: string;
+  placeholder?: string;
+  value?: string;
+  autocomplete?: string;
+  disabled?: boolean;
+  id?: string;
+  [key: string]: any;
+}
+
+const {
+  label,
+  name,
+  type = 'text',
+  required = false,
+  hint,
+  error,
+  placeholder,
+  value,
+  autocomplete,
+  disabled = false,
+  id = name,
+  ...rest
+} = Astro.props;
+
+const hintId = hint ? `${id}-hint` : undefined;
+const errorId = error ? `${id}-error` : undefined;
+const describedBy = [hintId, errorId].filter(Boolean).join(' ') || undefined;
+---
+
+<div class:list={['nx-field', error && 'nx-field--invalid']}>
+  <label class="nx-field__label" for={id}>
+    {label}{required && <span class="nx-field__req" aria-hidden="true">*</span>}
+  </label>
+  <input
+    class="nx-field__control"
+    id={id}
+    name={name}
+    type={type}
+    required={required}
+    placeholder={placeholder}
+    value={value}
+    autocomplete={autocomplete}
+    disabled={disabled}
+    aria-describedby={describedBy}
+    aria-invalid={error ? 'true' : undefined}
+    {...rest}
+  />
+  {hint && !error && <p class="nx-field__hint" id={hintId}>{hint}</p>}
+  {error && <p class="nx-field__error" id={errorId}>{error}</p>}
+</div>

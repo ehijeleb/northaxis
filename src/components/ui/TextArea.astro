@@ -1,0 +1,54 @@
+---
+// TextArea — labelled multi-line input with hint + error (mirrors TextField a11y).
+interface Props {
+  label: string;
+  name: string;
+  required?: boolean;
+  hint?: string;
+  error?: string;
+  placeholder?: string;
+  value?: string;
+  rows?: number;
+  disabled?: boolean;
+  id?: string;
+  [key: string]: any;
+}
+
+const {
+  label,
+  name,
+  required = false,
+  hint,
+  error,
+  placeholder,
+  value,
+  rows = 5,
+  disabled = false,
+  id = name,
+  ...rest
+} = Astro.props;
+
+const hintId = hint ? `${id}-hint` : undefined;
+const errorId = error ? `${id}-error` : undefined;
+const describedBy = [hintId, errorId].filter(Boolean).join(' ') || undefined;
+---
+
+<div class:list={['nx-field', error && 'nx-field--invalid']}>
+  <label class="nx-field__label" for={id}>
+    {label}{required && <span class="nx-field__req" aria-hidden="true">*</span>}
+  </label>
+  <textarea
+    class="nx-field__control"
+    id={id}
+    name={name}
+    required={required}
+    placeholder={placeholder}
+    rows={rows}
+    disabled={disabled}
+    aria-describedby={describedBy}
+    aria-invalid={error ? 'true' : undefined}
+    {...rest}
+  >{value}</textarea>
+  {hint && !error && <p class="nx-field__hint" id={hintId}>{hint}</p>}
+  {error && <p class="nx-field__error" id={errorId}>{error}</p>}
+</div>

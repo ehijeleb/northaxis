@@ -1,0 +1,52 @@
+---
+// Button — primary / secondary / ghost, three sizes, link or button, optional trailing icon.
+// Renders <a> when `href` is set, otherwise <button>. Styles in primitives.css (.nx-btn).
+import ArrowRight from 'lucide-astro/ArrowRight';
+
+interface Props {
+  variant?: 'primary' | 'secondary' | 'ghost';
+  size?: 'sm' | 'md' | 'lg';
+  href?: string;
+  type?: 'button' | 'submit' | 'reset';
+  disabled?: boolean;
+  /** Show a trailing arrow icon. */
+  arrow?: boolean;
+  /** Use the inverse palette on dark backgrounds. */
+  onDark?: boolean;
+  class?: string;
+  [key: string]: any;
+}
+
+const {
+  variant = 'primary',
+  size = 'md',
+  href,
+  type = 'button',
+  disabled = false,
+  arrow = false,
+  onDark = false,
+  class: className,
+  ...rest
+} = Astro.props;
+
+const classes = [
+  'nx-btn',
+  `nx-btn--${variant}`,
+  size !== 'md' && `nx-btn--${size}`,
+  onDark && 'nx-btn--on-dark',
+  className,
+];
+const Tag = href ? 'a' : 'button';
+---
+
+<Tag
+  class:list={classes}
+  href={href}
+  type={href ? undefined : type}
+  disabled={!href && disabled ? true : undefined}
+  aria-disabled={href && disabled ? 'true' : undefined}
+  {...rest}
+>
+  <slot />
+  {arrow && <ArrowRight aria-hidden="true" />}
+</Tag>

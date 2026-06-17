@@ -1,0 +1,15 @@
+---
+// PullQuote — serif (Source Serif 4), consultancy register. Optional attribution.
+interface Props {
+  cite?: string;
+  class?: string;
+}
+const { cite, class: className } = Astro.props;
+---
+
+<figure class:list={['nx-pullquote', className]}>
+  <blockquote class="nx-pullquote__text">
+    <slot />
+  </blockquote>
+  {cite && <figcaption class="nx-pullquote__cite">{cite}</figcaption>}
+</figure>
