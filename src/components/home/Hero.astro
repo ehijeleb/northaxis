@@ -1,0 +1,120 @@
+---
+// Homepage hero (Step 6, Brief §6.1). Promise-led, left-aligned. Copy is VERBATIM from the brief,
+// em dashes included — do not edit the headline or sub-headline.
+//
+// Background is a full-width PLACEHOLDER (deep ink brand treatment) until real photography arrives
+// (Nigerian infrastructure / advisory context) — a CRITICAL/high blocked item. Swapping in an
+// Astro <Image> later keeps the same min-height so there is no layout shift (CLS).
+import Button from '../ui/Button.astro';
+---
+
+<section class="nx-hero" aria-labelledby="nx-hero-title">
+  <div class="nx-hero__bg" aria-hidden="true"></div>
+  <div class="nx-hero__inner">
+    <p class="nx-hero__eyebrow">
+      Benin City &middot; Nigeria &middot; Est. <span class="nx-hero__placeholder">[year]</span>
+    </p>
+    <h1 id="nx-hero-title" class="nx-hero__title">
+      Building the infrastructure Nigeria needs — one integrated solution at a time
+    </h1>
+    <p class="nx-hero__sub">
+      Northaxis Integrated Services delivers procurement, technology, and energy solutions — with
+      embedded advisory — to government institutions, development organisations, and private sector
+      clients across Nigeria.
+    </p>
+    <div class="nx-hero__actions">
+      <Button variant="primary" onDark href="/what-we-do" arrow>View our services</Button>
+      <Button variant="secondary" onDark href="/contact" arrow>Get in touch</Button>
+    </div>
+  </div>
+</section>
+
+<style>
+  .nx-hero {
+    position: relative;
+    isolation: isolate;
+    min-height: clamp(30rem, 78vh, 44rem);
+    display: flex;
+    align-items: center;
+    overflow: hidden;
+  }
+  /*
+    PLACEHOLDER background: solid deep ink with a subtle one-direction darkening at the foot for
+    text legibility (not a multi-hue "AI" gradient) and a faint teal edge accent. Replace with the
+    real photo (set as background-image here, keep a dark overlay for contrast).
+  */
+  .nx-hero__bg {
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    background-color: #14201d;
+    background-image: linear-gradient(180deg, rgba(15, 110, 86, 0.18) 0%, rgba(20, 32, 29, 0) 38%),
+      linear-gradient(0deg, rgba(0, 0, 0, 0.55) 0%, rgba(0, 0, 0, 0) 55%);
+  }
+  /* Faint ascending-bars motif at the right edge — the one earned brand metaphor, very subtle. */
+  .nx-hero__bg::after {
+    content: '';
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    width: 42%;
+    max-width: 32rem;
+    height: 70%;
+    background-image: repeating-linear-gradient(
+      90deg,
+      rgba(93, 202, 165, 0.05) 0,
+      rgba(93, 202, 165, 0.05) 2px,
+      transparent 2px,
+      transparent 26px
+    );
+    -webkit-mask-image: linear-gradient(180deg, transparent, #000);
+    mask-image: linear-gradient(180deg, transparent, #000);
+  }
+
+  .nx-hero__inner {
+    width: 100%;
+    max-width: 72rem;
+    margin-inline: auto;
+    padding: 4rem 1.25rem;
+    color: #fff;
+  }
+  @media (min-width: 640px) {
+    .nx-hero__inner {
+      padding-inline: 1.5rem;
+    }
+  }
+
+  .nx-hero__eyebrow {
+    margin: 0 0 1rem;
+    font-size: 0.82rem;
+    font-weight: 600;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--color-bar-cap);
+  }
+  .nx-hero__placeholder {
+    color: rgba(255, 255, 255, 0.55);
+    font-style: italic;
+  }
+  .nx-hero__title {
+    margin: 0;
+    max-width: 20ch;
+    font-size: clamp(2rem, 1.1rem + 4vw, 3.4rem);
+    font-weight: 700;
+    line-height: 1.08;
+    letter-spacing: -0.01em;
+  }
+  .nx-hero__sub {
+    margin: 1.5rem 0 0;
+    max-width: 56ch;
+    font-size: clamp(1rem, 0.95rem + 0.4vw, 1.18rem);
+    line-height: 1.6;
+    color: rgba(255, 255, 255, 0.88);
+  }
+  .nx-hero__actions {
+    margin-top: 2rem;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.85rem;
+  }
+</style>

@@ -4,6 +4,18 @@ Running log of non-obvious choices. Newest first.
 
 ---
 
+## Step 6 — Homepage hero
+
+- **Copy is verbatim from Brief §6.1** (headline + sub-headline, em dashes preserved). Do not edit.
+- **Hero background is a placeholder** (deep ink brand treatment + subtle foot vignette for legibility
+  + faint ascending-bars motif). Deliberately NOT a multi-hue gradient (anti-slop). Replace with real
+  Nigerian infrastructure/advisory photography (blocked: company photography). Keeps a fixed
+  `min-height` so swapping in an `<Image>` later causes no CLS.
+- **Eyebrow year is a visible `[year]` placeholder** (year of establishment is blocked).
+- Promise-led + left-aligned (honours the structural law: hero leads with the promise, not services).
+- CTAs use the Button `arrow` icon rather than a literal "→" glyph: "View our services" -> /what-we-do,
+  "Get in touch" -> /contact.
+
 ## Step 5 — UI primitives + gallery
 
 - **Primitive styles live in a global `src/styles/primitives.css` (class-based), not Astro scoped

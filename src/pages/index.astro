@@ -1,22 +1,14 @@
 ---
-// Placeholder homepage. The real promise-led homepage is built in Phase C (Steps 6–8).
+// Homepage (Phase C). Promise-led: hero leads with the company promise, services sit deeper.
+// Sections are added across Steps 6-8. Copy in §6 sections is VERBATIM from the brief.
 import Base from '../layouts/Base.astro';
+import Hero from '../components/home/Hero.astro';
+
+const description =
+  'Northaxis Integrated Services delivers procurement, technology, and energy solutions, with embedded advisory, to government institutions, development organisations, and private sector clients across Nigeria.';
 ---
 
-<Base title="Northaxis Integrated Services">
-  <section class="mx-auto max-w-3xl px-6 py-24">
-    <p class="text-sm font-medium tracking-wide text-grey uppercase">
-      Benin City &middot; Nigeria
-    </p>
-    <h1 class="mt-3 text-4xl font-bold text-ink md:text-5xl">
-      Northaxis Integrated Services
-    </h1>
-    <p class="mt-4 max-w-2xl text-grey">
-      Foundation scaffold in place. The promise-led homepage is built in Phase C.
-    </p>
-    <p class="mt-8 text-sm text-grey">
-      Dev-only check pages:
-      <a class="text-teal underline" href="/dev/tokens">/dev/tokens</a>
-    </p>
-  </section>
+<Base title="Northaxis Integrated Services — integrated procurement, ICT & energy" description={description}>
+  <Hero />
+  {/* Step 7: credibility strip + company promise. Step 8: services grid, why, sectors, CTA band. */}
 </Base>
