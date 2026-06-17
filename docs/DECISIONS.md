@@ -4,6 +4,32 @@ Running log of non-obvious choices. Newest first.
 
 ---
 
+## Step 3 — Header + nav
+
+- **Routes defined** (central `src/config/site.ts`, reused by header + footer): `/` · `/what-we-do`
+  · `/what-we-do/procurement` · `/what-we-do/ict` · `/what-we-do/energy` · `/consultancy` (top-level
+  — cross-cutting, "pitched independently when the opportunity arises") · `/sectors` · `/projects` ·
+  `/about` · `/contact` · `/privacy`. Service pages nest under `/what-we-do/` so the section
+  highlights correctly.
+
+- **Nav is one React island hydrated `client:load`.** Nav is critical interactive UI (mobile
+  hamburger is the primary mobile nav), so it hydrates on load rather than `client:idle`. Links are
+  SSR'd plain anchors, so they work without JS; only the dropdown/drawer toggles need hydration.
+  Cost: the React runtime (~61KB gzip) loads site-wide. Revisit at the Step 22 performance pass if
+  the budget is tight (options: `client:idle`, or a no-framework toggle).
+
+- **Disclosure pattern, not ARIA menu.** "What we do" is a real link to the hub `/what-we-do` plus a
+  separate chevron `<button aria-expanded aria-controls>` toggling a list of links. This is the
+  accessible site-nav pattern (vs. application `role="menu"`), works without JS, and supports
+  arrow-key navigation + Esc. Brief's deliberate divider sits between the 3 service lines and
+  Consultancy in both the desktop dropdown and the mobile accordion.
+
+- **Header rendered globally in `Base.astro`** (overridable via the `header` slot) so the CTA is on
+  every page per the brief.
+
+- **Brief miscount noted:** Brief §4.1 says "five items" but lists six (Home | What we do | Sectors
+  | Projects | About | Contact). Followed the explicit six-item list (labels are authoritative).
+
 ## Step 1 — Scaffold
 
 - **Tailwind v4 via `@tailwindcss/vite`, not `@astrojs/tailwind`.** The instructions name

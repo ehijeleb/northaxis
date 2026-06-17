@@ -1,0 +1,21 @@
+---
+// Header — sticky global header (Step 3). Logo (link to home) + interactive Nav island.
+// Visible on every page; the "Get in touch" CTA lives inside Nav.
+import Logo from './Logo.astro';
+import Nav from './Nav.tsx';
+import { SITE } from '../config/site';
+import '../styles/nav.css';
+
+const pathname = Astro.url.pathname;
+---
+
+<header class="nx-header">
+  <div class="nx-header__inner">
+    <a href="/" class="nx-header__logo" aria-label={`${SITE.shortName} — home`}>
+      <Logo variant="light" height={30} />
+    </a>
+
+    {/* Interactive nav (desktop dropdown + mobile drawer). Critical UI → hydrate on load. */}
+    <Nav pathname={pathname} client:load />
+  </div>
+</header>
