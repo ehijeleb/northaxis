@@ -10,7 +10,7 @@ import StepList from '../ui/StepList.astro';
 import Pill from '../ui/Pill.astro';
 import CtaBand from '../ui/CtaBand.astro';
 import Button from '../ui/Button.astro';
-import Breadcrumb from '../ui/Breadcrumb.astro';
+import PageHero from '../ui/PageHero.astro';
 import EnquiryForm from './EnquiryForm.astro';
 import { CAPABILITY_STATEMENT_URL } from '../../config/site';
 import type { ServiceData } from '../../data/services';
@@ -35,18 +35,10 @@ function splitServices(body: string): { lead: string; services?: string } {
 ---
 
 {/* 1. Hero */}
-<section class="nx-shero" aria-labelledby="nx-shero-title">
-  <div class="nx-shero__bg" aria-hidden="true"></div>
-  <div class="nx-shero__inner">
-    <Breadcrumb items={crumbs} class="nx-shero__crumb" />
-    <h1 id="nx-shero-title" class="nx-shero__title">{data.heroHeadline}</h1>
-    <p class="nx-shero__sub">{data.hero.sub}</p>
-    <div class="nx-shero__actions">
-      <Button variant="primary" onDark href={CAPABILITY_STATEMENT_URL} arrow>Request a capability statement</Button>
-      <Button variant="secondary" onDark href="#enquiry" arrow>Discuss your requirement</Button>
-    </div>
-  </div>
-</section>
+<PageHero crumbs={crumbs} headline={data.heroHeadline} sub={data.hero.sub} titleId="nx-shero-title">
+  <Button variant="primary" onDark href={CAPABILITY_STATEMENT_URL} arrow>Request a capability statement</Button>
+  <Button variant="secondary" onDark href="#enquiry" arrow>Discuss your requirement</Button>
+</PageHero>
 
 {/* 2. Section intro — pull quote (serif) + body */}
 <Section bg="default" width="narrow" space="lg">
@@ -147,60 +139,6 @@ function splitServices(body: string): { lead: string; services?: string } {
 <EnquiryForm serviceLabel={data.label} />
 
 <style>
-  /* Service hero */
-  .nx-shero {
-    position: relative;
-    isolation: isolate;
-    overflow: hidden;
-    display: flex;
-    align-items: flex-end;
-    min-height: clamp(20rem, 42vh, 26rem);
-  }
-  .nx-shero__bg {
-    position: absolute;
-    inset: 0;
-    z-index: -1;
-    background-color: #14201d;
-    background-image: linear-gradient(180deg, rgba(15, 110, 86, 0.18) 0%, rgba(20, 32, 29, 0) 45%),
-      linear-gradient(0deg, rgba(0, 0, 0, 0.5) 0%, rgba(0, 0, 0, 0) 60%);
-  }
-  .nx-shero__inner {
-    width: 100%;
-    max-width: 72rem;
-    margin-inline: auto;
-    padding: 2.5rem 1.25rem;
-    color: #fff;
-  }
-  @media (min-width: 640px) {
-    .nx-shero__inner {
-      padding: 3rem 1.5rem;
-    }
-  }
-  .nx-shero__crumb {
-    color: rgba(255, 255, 255, 0.85);
-    margin-bottom: 1rem;
-  }
-  .nx-shero__title {
-    margin: 0;
-    max-width: 22ch;
-    font-size: clamp(1.8rem, 1.1rem + 3vw, 2.9rem);
-    font-weight: 700;
-    line-height: 1.1;
-  }
-  .nx-shero__sub {
-    margin: 1.1rem 0 0;
-    max-width: 60ch;
-    font-size: clamp(1rem, 0.95rem + 0.3vw, 1.12rem);
-    line-height: 1.6;
-    color: rgba(255, 255, 255, 0.88);
-  }
-  .nx-shero__actions {
-    margin-top: 1.75rem;
-    display: flex;
-    flex-wrap: wrap;
-    gap: 0.85rem;
-  }
-
   /* Shared content helpers */
   .nx-h2 {
     margin: 0 0 1.5rem;

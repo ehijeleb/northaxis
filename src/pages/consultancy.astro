@@ -1,0 +1,154 @@
+---
+// Consultancy overview (Phase E, Step 11, Brief §8). Cross-line advisory, not a fourth service.
+// Reachable from the "What we do" dropdown after the divider. Copy is VERBATIM (em/en dashes kept).
+import Base from '../layouts/Base.astro';
+import PageHero from '../components/ui/PageHero.astro';
+import Section from '../components/ui/Section.astro';
+import Card from '../components/ui/Card.astro';
+import Button from '../components/ui/Button.astro';
+import EnquiryForm from '../components/service/EnquiryForm.astro';
+import { CAPABILITY_STATEMENT_URL } from '../config/site';
+import Check from 'lucide-astro/Check';
+
+const crumbs = [{ label: 'Home', href: '/' }, { label: 'Consultancy' }];
+
+const advisoryAreas = [
+  {
+    title: 'Procurement & supply chain advisory',
+    body: 'Procurement strategy, spend analysis, vendor risk assessment, category management, and healthcare supply chain advisory. Available as a standalone engagement or alongside a procurement contract.',
+  },
+  {
+    title: 'Digital transformation advisory',
+    body: 'ICT systems audit, digital transformation strategy, cyber security readiness, and e-government implementation support. Available as a standalone engagement or alongside an ICT supply contract.',
+  },
+  {
+    title: 'Energy & sustainability advisory',
+    body: 'Energy audit, rural electrification planning, sustainability strategy, and renewable transition roadmaps. Available as a standalone engagement or alongside an energy supply contract.',
+  },
+];
+
+const whoWeWorkWith = [
+  'Permanent secretaries and directors-general reviewing institutional strategy',
+  'Programme managers overseeing capital projects',
+  'Development finance institutions evaluating project readiness',
+  'State government MDAs building internal procurement capacity',
+];
+
+const engagement = [
+  {
+    title: 'Diagnostic review',
+    body: 'Short, focused assessment of the presenting challenge — typically 5–10 working days. Produces a findings report with prioritised recommendations.',
+  },
+  {
+    title: 'Advisory retainer',
+    body: 'Ongoing advisory relationship with defined monthly engagement hours. Suitable for MDAs building procurement or digital capability over a 6–12 month period.',
+  },
+  {
+    title: 'Programme advisory',
+    body: 'Embedded advisory support for a specific project or programme — from inception through to delivery. Scope and duration agreed at outset.',
+  },
+];
+
+const description =
+  "Northaxis's embedded consultancy offers government clients and development organisations strategic advisory across procurement, technology, and energy, from the same firm that delivers their equipment and services.";
+---
+
+<Base title="Consultancy — strategic advisory across procurement, technology & energy | Northaxis" description={description}>
+  <PageHero
+    crumbs={crumbs}
+    headline="Strategic advisory — across procurement, technology, and energy"
+    sub="Northaxis's embedded consultancy offer means government clients and development organisations can access strategic advisory from the same firm that delivers their equipment and services — without needing a separate engagement."
+  >
+    <Button variant="primary" onDark href="#enquiry" arrow>Discuss your requirement</Button>
+    <Button variant="secondary" onDark href={CAPABILITY_STATEMENT_URL} arrow>Request a capability statement</Button>
+  </PageHero>
+
+  {/* Advisory areas — three cards (light-teal consultancy register) */}
+  <Section bg="white" space="lg">
+    <h2 class="nx-h2">Advisory areas</h2>
+    <div class="grid gap-5 md:grid-cols-3">
+      {
+        advisoryAreas.map((a) => (
+          <Card variant="consultancy">
+            <h3 class="nx-card__title">{a.title}</h3>
+            <p class="nx-card__body">{a.body}</p>
+          </Card>
+        ))
+      }
+    </div>
+  </Section>
+
+  {/* Who we work with */}
+  <Section bg="default" width="narrow" space="lg">
+    <h2 class="nx-h2">Who we work with</h2>
+    <ul class="nx-wholist">
+      {
+        whoWeWorkWith.map((w) => (
+          <li>
+            <span class="nx-wholist__mark" aria-hidden="true"><Check /></span>
+            <span>{w}</span>
+          </li>
+        ))
+      }
+    </ul>
+  </Section>
+
+  {/* Engagement approach */}
+  <Section bg="tealLight" space="lg">
+    <h2 class="nx-h2">Engagement approach</h2>
+    <div class="grid gap-5 md:grid-cols-3">
+      {
+        engagement.map((e) => (
+          <Card>
+            <h3 class="nx-card__title">{e.title}</h3>
+            <p class="nx-card__body">{e.body}</p>
+          </Card>
+        ))
+      }
+    </div>
+  </Section>
+
+  {/* Consultancy enquiry form */}
+  <EnquiryForm serviceLabel="Consultancy" />
+</Base>
+
+<style>
+  .nx-h2 {
+    margin: 0 0 1.5rem;
+    font-size: clamp(1.5rem, 1.2rem + 1.4vw, 2rem);
+    font-weight: 700;
+    color: var(--color-ink);
+  }
+  .nx-wholist {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: grid;
+    gap: 1rem;
+  }
+  .nx-wholist li {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    gap: 0.85rem;
+    align-items: start;
+    font-size: 1.02rem;
+    line-height: 1.5;
+    color: var(--color-ink);
+  }
+  .nx-wholist__mark {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 1.6rem;
+    height: 1.6rem;
+    flex: none;
+    margin-top: 0.1rem;
+    border-radius: 9999px;
+    background: var(--color-teal-light);
+    color: var(--color-teal);
+  }
+  .nx-wholist__mark :global(svg) {
+    width: 1rem;
+    height: 1rem;
+  }
+</style>
