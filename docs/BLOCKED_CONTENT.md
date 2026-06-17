@@ -38,3 +38,6 @@ Legend: ☐ outstanding · ☑ supplied
 ### Log
 - 2026-06-17 (Step 1): seeded from instructions Appendix. Flagged missing brief PDF as a CRITICAL
   blocker for content steps. `site` domain + pro email set as placeholders in config.
+- 2026-06-17 (Step 4): wired placeholders into the footer — LinkedIn URL (`https://www.linkedin.com/`),
+  email (`info@northaxisintegrated.com`), office address (`Benin City, Edo State, Nigeria`), each
+  shown with a "to be confirmed" hint. Swap when client supplies real values.

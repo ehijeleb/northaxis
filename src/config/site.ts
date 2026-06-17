@@ -38,15 +38,24 @@ export const PRIMARY_NAV: NavItem[] = [
 /** Header CTA — visible on every page, links to Contact. */
 export const HEADER_CTA: NavItem = { label: 'Get in touch', href: '/contact' };
 
-/** Confirmed contact details (Brief). Email/address are placeholders — see BLOCKED_CONTENT.md. */
+/** Confirmed contact details (Brief). Email/address/LinkedIn are placeholders — see BLOCKED_CONTENT.md. */
 export const SITE = {
   name: 'Northaxis Integrated Services Limited',
   shortName: 'Northaxis',
   location: 'Benin City, Edo State, Nigeria',
   whatsappNumber: '+234 706 248 4221',
   whatsappUrl: 'https://wa.me/2347062484221',
+  /** Prefilled WhatsApp message (my own copy, no em dashes). */
+  whatsappMessage: 'Hello Northaxis, I would like to enquire about your services.',
   emailPlaceholder: 'info@northaxisintegrated.com',
+  /** PLACEHOLDER — real office address is a CRITICAL blocked item. */
+  addressPlaceholder: 'Benin City, Edo State, Nigeria',
+  /** PLACEHOLDER — mandatory footer LinkedIn link; real company URL is blocked. */
+  linkedinUrlPlaceholder: 'https://www.linkedin.com/',
 } as const;
+
+/** Full WhatsApp click-to-chat URL with the prefilled message. */
+export const WHATSAPP_CHAT_URL = `${SITE.whatsappUrl}?text=${encodeURIComponent(SITE.whatsappMessage)}`;
 
 /** Mark the active route for aria-current. Exact match, plus section match for nested service pages. */
 export function isActive(href: string, pathname: string): boolean {

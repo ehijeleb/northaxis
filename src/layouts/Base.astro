@@ -6,7 +6,11 @@
 import '@fontsource-variable/inter';
 import '@fontsource/source-serif-4'; // serif, consultancy contexts only
 import '../styles/tokens.css';
+import '../styles/consent.css';
 import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import WhatsAppButton from '../components/WhatsAppButton.astro';
+import CookieConsent from '../components/CookieConsent.tsx';
 
 interface Props {
   title?: string;
@@ -43,7 +47,11 @@ const {
       <slot />
     </main>
 
-    {/* Footer + global furniture slot in at Step 4. */}
-    <slot name="footer" />
+    {/* Global footer (overridable via the "footer" slot). */}
+    <slot name="footer"><Footer /></slot>
+
+    {/* Global furniture: floating WhatsApp + privacy-first cookie consent. */}
+    <WhatsAppButton />
+    <CookieConsent client:idle />
   </body>
 </html>

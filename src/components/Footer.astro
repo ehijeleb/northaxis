@@ -1,0 +1,222 @@
+---
+// Footer — global footer (Step 4). Brand + nav columns + contact block + mandatory LinkedIn +
+// copyright + privacy link. Uses the full dark Logo lockup. Copy here is my own voice: no em dashes.
+import Logo from './Logo.astro';
+import {
+  SERVICE_LINES,
+  CONSULTANCY,
+  SITE,
+  WHATSAPP_CHAT_URL,
+} from '../config/site';
+
+const year = new Date().getFullYear();
+
+const companyLinks = [
+  { label: 'About us', href: '/about' },
+  { label: 'Sectors', href: '/sectors' },
+  { label: 'Projects', href: '/projects' },
+  { label: 'Contact', href: '/contact' },
+];
+---
+
+<footer class="nx-footer">
+  <div class="nx-footer__inner">
+    <div class="nx-footer__grid">
+      <div class="nx-footer__brand">
+        <a href="/" class="nx-footer__logo" aria-label={`${SITE.shortName} — home`}>
+          <Logo variant="dark" height={34} />
+        </a>
+        <p class="nx-footer__blurb">
+          Integrated procurement, ICT, energy, and advisory services for the public sector in Edo
+          State and across Nigeria.
+        </p>
+        <a
+          class="nx-footer__social"
+          href={SITE.linkedinUrlPlaceholder}
+          target="_blank"
+          rel="noopener noreferrer"
+          aria-label={`${SITE.shortName} on LinkedIn`}
+        >
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+            <path d="M20.45 20.45h-3.55v-5.57c0-1.33-.02-3.04-1.85-3.04-1.85 0-2.13 1.45-2.13 2.94v5.67H9.35V9h3.41v1.56h.05c.48-.9 1.63-1.85 3.36-1.85 3.6 0 4.27 2.37 4.27 5.45v6.29zM5.34 7.43a2.06 2.06 0 1 1 0-4.12 2.06 2.06 0 0 1 0 4.12zM7.12 20.45H3.56V9h3.56v11.45zM22.22 0H1.77C.79 0 0 .77 0 1.73v20.54C0 23.22.79 24 1.77 24h20.45c.98 0 1.78-.78 1.78-1.73V1.73C24 .77 23.2 0 22.22 0z"></path>
+          </svg>
+          <span>LinkedIn</span>
+        </a>
+      </div>
+
+      <nav class="nx-footer__col" aria-label="What we do">
+        <h2 class="nx-footer__heading">What we do</h2>
+        <ul>
+          {SERVICE_LINES.map((s) => (
+            <li><a href={s.href}>{s.label}</a></li>
+          ))}
+          <li><a href={CONSULTANCY.href}>{CONSULTANCY.label}</a></li>
+        </ul>
+      </nav>
+
+      <nav class="nx-footer__col" aria-label="Company">
+        <h2 class="nx-footer__heading">Company</h2>
+        <ul>
+          {companyLinks.map((l) => (
+            <li><a href={l.href}>{l.label}</a></li>
+          ))}
+        </ul>
+      </nav>
+
+      <div class="nx-footer__col">
+        <h2 class="nx-footer__heading">Get in touch</h2>
+        <ul class="nx-footer__contact">
+          <li>
+            <a href={WHATSAPP_CHAT_URL} target="_blank" rel="noopener noreferrer">
+              {SITE.whatsappNumber}
+            </a>
+            <span class="nx-footer__hint">Phone / WhatsApp</span>
+          </li>
+          <li>
+            <a href={`mailto:${SITE.emailPlaceholder}`}>{SITE.emailPlaceholder}</a>
+            <span class="nx-footer__hint">Email (to be confirmed)</span>
+          </li>
+          <li>
+            <span>{SITE.addressPlaceholder}</span>
+            <span class="nx-footer__hint">Office address (to be confirmed)</span>
+          </li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="nx-footer__bar">
+      <p>&copy; {year} {SITE.name}.</p>
+      <nav aria-label="Legal">
+        <a href="/privacy">Privacy policy</a>
+      </nav>
+    </div>
+  </div>
+</footer>
+
+<style>
+  .nx-footer {
+    background: var(--color-ink);
+    color: rgba(255, 255, 255, 0.82);
+  }
+  .nx-footer__inner {
+    max-width: 80rem;
+    margin-inline: auto;
+    padding: 3.5rem 1.25rem 2rem;
+  }
+  .nx-footer__grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 2.5rem;
+  }
+  @media (min-width: 640px) {
+    .nx-footer__grid {
+      grid-template-columns: 1fr 1fr;
+    }
+  }
+  @media (min-width: 1024px) {
+    .nx-footer__grid {
+      grid-template-columns: 1.6fr 1fr 1fr 1.2fr;
+      gap: 3rem;
+    }
+  }
+
+  .nx-footer__logo {
+    display: inline-flex;
+    border-radius: 0.375rem;
+  }
+  .nx-footer__blurb {
+    margin: 1rem 0 1.25rem;
+    max-width: 32ch;
+    font-size: 0.9rem;
+    line-height: 1.6;
+    color: rgba(255, 255, 255, 0.72);
+  }
+  .nx-footer__social {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    color: rgba(255, 255, 255, 0.82);
+    text-decoration: none;
+    font-size: 0.9rem;
+    font-weight: 500;
+    transition: color 150ms ease-out;
+  }
+  .nx-footer__social:hover {
+    color: var(--color-bar-cap);
+  }
+
+  .nx-footer__heading {
+    margin: 0 0 0.9rem;
+    font-size: 0.78rem;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: #fff;
+  }
+  .nx-footer__col ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 0.6rem;
+  }
+  .nx-footer__col a {
+    color: rgba(255, 255, 255, 0.78);
+    text-decoration: none;
+    font-size: 0.92rem;
+    transition: color 150ms ease-out;
+  }
+  .nx-footer__col a:hover {
+    color: #fff;
+    text-decoration: underline;
+    text-underline-offset: 3px;
+  }
+
+  .nx-footer__contact li {
+    display: flex;
+    flex-direction: column;
+    gap: 0.15rem;
+  }
+  .nx-footer__hint {
+    font-size: 0.74rem;
+    color: rgba(255, 255, 255, 0.5);
+  }
+
+  .nx-footer__bar {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+    margin-top: 3rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid rgba(255, 255, 255, 0.14);
+    font-size: 0.85rem;
+    color: rgba(255, 255, 255, 0.62);
+  }
+  .nx-footer__bar p {
+    margin: 0;
+  }
+  .nx-footer__bar a {
+    color: rgba(255, 255, 255, 0.82);
+    text-decoration: none;
+  }
+  .nx-footer__bar a:hover {
+    color: #fff;
+    text-decoration: underline;
+    text-underline-offset: 3px;
+  }
+  @media (min-width: 640px) {
+    .nx-footer__bar {
+      flex-direction: row;
+      align-items: center;
+      justify-content: space-between;
+    }
+  }
+
+  /* Shared focus ring for footer links/buttons. */
+  .nx-footer a:focus-visible {
+    outline: 2px solid var(--color-bar-cap);
+    outline-offset: 2px;
+    border-radius: 0.25rem;
+  }
+</style>

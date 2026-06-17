@@ -4,6 +4,25 @@ Running log of non-obvious choices. Newest first.
 
 ---
 
+## Step 4 — Footer + global furniture
+
+- **Consent is the gate for all non-essential scripts.** `src/lib/consent.ts` stores the choice in
+  `localStorage` (`nx-consent` = accepted|rejected) and broadcasts a `nx:consent` CustomEvent.
+  GA4 (Step 21) and Google Maps (Step 16) must call `hasConsent()` / `onConsent()` before loading.
+  Nothing non-essential runs until the user accepts. Banner hydrates `client:idle` (not critical).
+
+- **WhatsApp FAB hidden while the consent banner is open.** Both are bottom-anchored fixed
+  elements; rather than fragile lift math (banner height varies), the FAB is `display:none` while
+  `body.nx-consent-open` is set, and returns the instant the user decides. Pure Astro + CSS button,
+  hidden in print, one-time entrance, reduced-motion safe.
+
+- **Footer is dark (ink `#1A1A1A`) with the dark logo variant** — gives weight and clean separation;
+  contrast checked (white / white-alpha on near-black). Full logo lockup lives here and at >=480px
+  in the header. Copyright year via build-time `new Date().getFullYear()`.
+
+- **LinkedIn is mandatory in the footer (Brief §9.1)** — placeholder URL `https://www.linkedin.com/`,
+  flagged in BLOCKED_CONTENT. Email + address shown with "to be confirmed" hints.
+
 ## Step 3 — Header + nav
 
 - **Routes defined** (central `src/config/site.ts`, reused by header + footer): `/` · `/what-we-do`

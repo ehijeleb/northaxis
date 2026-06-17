@@ -1,0 +1,102 @@
+/* Cookie-consent banner styles (Step 4). Used by the CookieConsent React island. */
+
+.nx-consent {
+  position: fixed;
+  left: 1rem;
+  bottom: 1rem;
+  z-index: 60;
+  width: min(100% - 2rem, 32rem);
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  padding: 1.1rem 1.25rem;
+  background: #fff;
+  border: 1px solid var(--color-border);
+  border-radius: 0.75rem;
+  box-shadow: 0 16px 40px -16px rgba(26, 26, 26, 0.32);
+
+  /* One-time entrance; reduced-motion zeroes the duration via the global rule. */
+  opacity: 0;
+  transform: translateY(10px);
+  transition: opacity 220ms ease-out, transform 220ms ease-out;
+}
+.nx-consent--in {
+  opacity: 1;
+  transform: none;
+}
+
+.nx-consent__title {
+  margin: 0 0 0.3rem;
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: var(--color-ink);
+}
+.nx-consent__desc {
+  margin: 0;
+  font-size: 0.85rem;
+  line-height: 1.55;
+  color: var(--color-grey);
+}
+.nx-consent__link {
+  color: var(--color-teal);
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+
+.nx-consent__actions {
+  display: flex;
+  gap: 0.6rem;
+}
+.nx-consent__btn {
+  flex: 1;
+  padding: 0.55rem 0.9rem;
+  border-radius: 0.5rem;
+  font-size: 0.88rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 150ms ease-out, color 150ms ease-out, border-color 150ms ease-out;
+}
+.nx-consent__btn:focus-visible {
+  outline: 2px solid var(--color-teal);
+  outline-offset: 2px;
+}
+.nx-consent__btn--ghost {
+  background: transparent;
+  color: var(--color-ink);
+  border: 1px solid var(--color-border);
+}
+.nx-consent__btn--ghost:hover {
+  border-color: var(--color-teal);
+  color: var(--color-teal);
+}
+.nx-consent__btn--solid {
+  background: var(--color-teal);
+  color: #fff;
+  border: 1px solid var(--color-teal);
+}
+.nx-consent__btn--solid:hover {
+  background: color-mix(in srgb, var(--color-teal) 88%, #000);
+}
+
+@media (min-width: 560px) {
+  .nx-consent {
+    flex-direction: row;
+    align-items: center;
+    gap: 1.25rem;
+  }
+  .nx-consent__actions {
+    flex: none;
+  }
+  .nx-consent__btn {
+    flex: none;
+  }
+}
+
+/*
+  Avoid the banner and the floating WhatsApp button colliding in the bottom corner. The banner is
+  a transient, one-time first-visit element, so we simply hide the FAB while it is open; the FAB
+  returns the instant the user accepts or rejects. Robust across all widths and banner heights.
+*/
+body.nx-consent-open .nx-wa {
+  display: none;
+}
