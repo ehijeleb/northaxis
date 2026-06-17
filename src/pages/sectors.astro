@@ -1,0 +1,153 @@
+---
+// Sectors (Phase E, Step 14). Client self-identification: a grid of sectors served with Northaxis's
+// role in each. Sector labels match the homepage strip (Brief §6.6); role descriptions are my own
+// voice (no em dashes), drawn from the three service lines.
+import Base from '../layouts/Base.astro';
+import PageHero from '../components/ui/PageHero.astro';
+import Section from '../components/ui/Section.astro';
+import Button from '../components/ui/Button.astro';
+import CtaBand from '../components/ui/CtaBand.astro';
+import Landmark from 'lucide-astro/Landmark';
+import Building2 from 'lucide-astro/Building2';
+import HeartPulse from 'lucide-astro/HeartPulse';
+import GraduationCap from 'lucide-astro/GraduationCap';
+import HardHat from 'lucide-astro/HardHat';
+import Fuel from 'lucide-astro/Fuel';
+import Banknote from 'lucide-astro/Banknote';
+import Briefcase from 'lucide-astro/Briefcase';
+
+const crumbs = [{ label: 'Home', href: '/' }, { label: 'Sectors' }];
+
+const sectors = [
+  {
+    Icon: Landmark,
+    name: 'State government MDAs',
+    role: 'We support ministries, departments, and agencies with compliant procurement, equipment supply, ICT deployment, and energy systems, plus advisory on procurement strategy and digital transformation.',
+  },
+  {
+    Icon: Building2,
+    name: 'Federal agencies',
+    role: 'We deliver supply and advisory services to federal institutions, working within their procurement frameworks from pre-qualification through to handover.',
+  },
+  {
+    Icon: HeartPulse,
+    name: 'Health sector',
+    role: 'We supply medical and facility equipment, power, and ICT systems for health institutions, with healthcare supply chain advisory aligned to recognised procurement standards.',
+  },
+  {
+    Icon: GraduationCap,
+    name: 'Education institutions',
+    role: 'We equip schools and tertiary institutions with ICT, power, and facility equipment, from computer labs to reliable energy supply.',
+  },
+  {
+    Icon: HardHat,
+    name: 'Infrastructure & civil works',
+    role: 'We source and deliver earthmoving, road, lifting, and concrete equipment for capital projects, with logistics managed from port to project site.',
+  },
+  {
+    Icon: Fuel,
+    name: 'Oil & gas',
+    role: 'We supply industrial power, electrical systems, and equipment for operators, with import documentation and delivery handled end to end.',
+  },
+  {
+    Icon: Banknote,
+    name: 'Development finance',
+    role: 'We support development finance institutions and the programmes they fund with procurement, equipment supply, and project readiness advisory.',
+  },
+  {
+    Icon: Briefcase,
+    name: 'Private sector',
+    role: 'We work with construction firms, developers, and private operators who need a reliable supply and logistics partner with advisory depth.',
+  },
+];
+
+const description =
+  'Northaxis serves state and federal government, health, education, infrastructure, oil and gas, development finance, and private sector clients across Nigeria.';
+---
+
+<Base title="Sectors we serve | Northaxis Integrated Services" description={description}>
+  <PageHero
+    crumbs={crumbs}
+    headline="Sectors we serve"
+    sub="We work across the public and private sectors that drive Nigeria's development. Find your sector below to see how Northaxis delivers, from supply to advisory."
+  >
+    <Button variant="primary" onDark href="/contact" arrow>Get in touch</Button>
+  </PageHero>
+
+  <Section bg="white" space="lg">
+    <div class="nx-sec-grid">
+      {
+        sectors.map(({ Icon, name, role }) => (
+          <article class="nx-sec">
+            <span class="nx-sec__icon" aria-hidden="true"><Icon /></span>
+            <h2 class="nx-sec__name">{name}</h2>
+            <p class="nx-sec__role">{role}</p>
+          </article>
+        ))
+      }
+    </div>
+  </Section>
+
+  <Section bg="default" space="lg">
+    <CtaBand
+      title="See your sector here?"
+      sub="Tell us about your requirement and we will show you how our integrated model applies to your work."
+      variant="teal"
+    >
+      <Button variant="primary" onDark href="/contact" arrow>Get in touch</Button>
+      <Button variant="secondary" onDark href="/what-we-do">View our services</Button>
+    </CtaBand>
+  </Section>
+</Base>
+
+<style>
+  .nx-sec-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1.25rem;
+  }
+  @media (min-width: 600px) {
+    .nx-sec-grid {
+      grid-template-columns: 1fr 1fr;
+    }
+  }
+  @media (min-width: 960px) {
+    .nx-sec-grid {
+      grid-template-columns: repeat(3, 1fr);
+    }
+  }
+  .nx-sec {
+    padding: 1.5rem;
+    background: var(--color-bg);
+    border: 1px solid var(--color-border);
+    border-radius: 0.75rem;
+    border-top: 3px solid var(--color-teal);
+  }
+  .nx-sec__icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 2.75rem;
+    height: 2.75rem;
+    border-radius: 0.6rem;
+    background: var(--color-teal-light);
+    color: var(--color-teal);
+    margin-bottom: 1rem;
+  }
+  .nx-sec__icon :global(svg) {
+    width: 1.4rem;
+    height: 1.4rem;
+  }
+  .nx-sec__name {
+    margin: 0 0 0.5rem;
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: var(--color-ink);
+  }
+  .nx-sec__role {
+    margin: 0;
+    font-size: 0.95rem;
+    line-height: 1.6;
+    color: var(--color-grey);
+  }
+</style>
